@@ -5,7 +5,9 @@ const express = require('express'),
       nodemailer = require('nodemailer'),
       bodyParser = require('body-parser'),
       displayRoutes = require('express-routemap'),
-       pg = require('pg');
+       pg = require('pg'),
+       bcrypt = require('bcrypt'),
+       session = require('express-session');
 
 var app = express(),
     db = require('./models'),
@@ -17,6 +19,12 @@ app.use(morgan('dev'));
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}));
 app.set('view engine', 'pug');
 
  app.get('/register', (req, res) => {
@@ -37,11 +45,13 @@ app.post('/users', (req, res) => {
   db.User.create(user).then((user) => {
       res.redirect('/admin');
   });
+});
+app.post('/challenge', (req, res) => {
 
 });
-
 db.sequelize.sync().then(() => {
   app.listen(3000, () => {
       console.log('Web Server is running on port 3000');
+       displayRoutes(app);
     });
   });
