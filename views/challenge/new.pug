@@ -5,10 +5,19 @@ block content
 			.col-xs-8.offset-xs-2
 				form(action= "/challenge" method= "POST")
 					.form-group
-						label(for="")  Name
+						label(for="")  Name of challenge
 						input(type="" class="form-control" name="name" )
+					.form-group
+						label(for="")  Amount of bet
+						input(type="" class="form-control" name="amount" )
+					.form-group
+						label(for="")  Type of challenge
+						input(type="" class="form-control" name="type" )
 					.form-group
 						label(for="") Length
 						input(type="" class="form-control" name="length" )
+					.form-group
+						label(for="")  Email of participant
+						input(type="" class="form-control" name="email" )
 
 					button(type="submit" class="btn btn-success") Create
