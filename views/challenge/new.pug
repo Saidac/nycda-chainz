@@ -1,0 +1,14 @@
+extends ../application.pug
+block content
+	.container
+		.row
+			.col-xs-8.offset-xs-2
+				form(action= "/challenge" method= "POST")
+					.form-group
+						label(for="")  Name
+						input(type="" class="form-control" name="name" )
+					.form-group
+						label(for="") Length
+						input(type="" class="form-control" name="length" )
+
+					button(type="submit" class="btn btn-success") Create
