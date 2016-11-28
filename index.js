@@ -23,6 +23,16 @@ app.get('/', function (req, res) {
   res.render('index');
 });
 
+app.post('/checkers', (req, res) => {
+  db.Checker.update(req.body, {
+    where: {
+      id: req.params.id
+    }
+  }).then(() => {
+    res.redirect('/');
+  });
+});
+
 app.listen(3000, () => {
   console.log('Web server is running on port 3000');
 });
