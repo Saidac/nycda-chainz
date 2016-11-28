@@ -19,8 +19,8 @@ app.use(morgan('dev'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/', (request, response) => {
-  response.redirect('index');
+app.get('/', function (req, res) {
+  res.render('index');
 });
 
 app.listen(3000, () => {
