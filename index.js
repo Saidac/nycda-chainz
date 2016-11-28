@@ -27,7 +27,7 @@ app.use(session({
 }));
 app.set('view engine', 'pug');
 
- app.get('/register', (req, res) => {
+ app.get('/', (req, res) => {
     res.render('users/new');
  });
 app.get('/login', (req, res) => {
@@ -37,7 +37,10 @@ app.get('/login', (req, res) => {
 app.get('/admin', (req, res) => {
   res.render('users/login');
 });
-app.get('/admin/challenge', (req, res) => {
+app.get('/challenge', (req, res) => {
+  res.render('challenge/index');
+});
+app.get('/admin/challenge/new', (req, res) => {
   res.render('challenge/new');
 });
 app.post('/users', (req, res) => {
@@ -45,6 +48,9 @@ app.post('/users', (req, res) => {
   db.User.create(user).then((user) => {
       res.redirect('/admin');
   });
+});
+app.post('/login', (req, res) => {
+
 });
 app.post('/challenge', (req, res) => {
 
