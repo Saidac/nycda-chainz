@@ -19,18 +19,21 @@ app.use(morgan('dev'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
+  console.log('rendering index');
   res.render('index');
 });
 
 app.post('/checkers', (req, res) => {
-  db.Checker.update(req.body, {
-    where: {
-      id: req.params.id
-    }
-  }).then(() => {
+  console.log('creating checker');
+  db.Checker.create(req.body).then((checker) => {
     res.redirect('/');
   });
+});
+
+app.put('/checkers', (req, res) => {
+  console.log('updating checker');
+  db.Checker.update(req.body);
 });
 
 app.listen(3000, () => {

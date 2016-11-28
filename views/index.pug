@@ -10,11 +10,14 @@ html
           h1  Chainz Functionality Test Zone
           hr
           h3  3 day challenge test
+          //- Create challenge dummy button.
+          //- Create checker after days in challenges
           .form-group
-            form(action="/checkers" method="POST")
-            button(type='submit') Check
-
-
+            //- Update checker
+            form(action="/checkers" method="PUT")
+              label(for="checker")
+              //- input(type="hidden" name="_method" value="PUT")
+              button(type='submit') Update Checker
 
 
 
