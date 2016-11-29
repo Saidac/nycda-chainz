@@ -9,15 +9,18 @@ html
         .col-md-6.offset-md-3
           h1  Chainz Functionality Test Zone
           hr
-          h3  3 day challenge test
-          //- Create challenge dummy button.
-          //- Create checker after days in challenges
+          h3  5 day challenge test
+          form(action="/challenges" method="POST")
+            .form-group
+              label(for="challenge-days") Days
+              input(name="days" class="form-control" id="challenge-days")
+            div(class="form-group text-xs-right")
+              button(type='submit' class="btn btn-lg btn-secondary") Create Challenge
+
           .form-group
-            //- Update checker
-            form(action="/checkers" method="PUT")
+            form(action="/checkers" method="POST")
               label(for="checker")
-              //- input(type="hidden" name="_method" value="PUT")
-              button(type='submit') Update Checker
+              button(type='submit' class="btn btn-lg btn-secondary") Update Checker
 
 
 

@@ -24,16 +24,18 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.post('/checkers', (req, res) => {
-  console.log('creating checker');
-  db.Checker.create(req.body).then((checker) => {
+app.post('/challenge', (req, res) => {
+  console.log('creating challenge');
+  db.Challenge.create(req.body).then((challenge) => {
     res.redirect('/');
   });
 });
 
-app.put('/checkers', (req, res) => {
-  console.log('updating checker');
-  db.Checker.update(req.body);
+app.post('/checkers', (req, res) => {
+  console.log('posting checker');
+  db.Checker.create(req.body).then((checker) => {
+    res.redirect('/');
+  });
 });
 
 app.listen(3000, () => {
