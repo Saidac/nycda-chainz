@@ -5,18 +5,42 @@ html
     br
     br
     .container
-      .row
-        .col-md-6.offset-md-3
-          h1  Chainz Functionality Test Zone
+      .col-md-6.offset-md-3
+        .row
+          h1  Chainz Test Zone
           hr
-          h3  3 day challenge test
-          form(action="/challenges" method="POST")
-            .form-group
-              label(for="challenge-days") Create 3 Day challenge
-              input(type="radio" name="days" value=3 class="form-control" id="challenge-days")
-            div(class="form-group text-xs-right")
-              button(type='submit' class="btn btn-sm btn-secondary") Create Challenge
+          h3  5 day static test
+          //- form(action="/challenges" method="POST")
+          //-   .form-group
+          //-     label(for="challenge-days") Create 3 Day challenge
+          //-     input(type="radio" name="days" value=3 class="form-control" id="challenge-days")
+          //-   div(class="form-group text-xs-right")
+          //-     button(type='submit' class="btn btn-sm btn-secondary") Create Challenge
+        br
+        .row
+          .col-md-2
+            .card.card-outline-primary.text-xs-center
+              .card-block
+                | 1
+          .col-md-2
+            .card.card-outline-primary.text-xs-center
+              .card-block
+                | 2
+          .col-md-2
+            .card.card-outline-primary.text-xs-center
+              .card-block
+                | 3
+          .col-md-2
+            .card.card-outline-primary.text-xs-center
+              .card-block
+                | 4
+          .col-md-2
+            .card.card-outline-primary.text-xs-center
+              .card-block
+                | 5
+        br
 
+        .row
           .form-group
             form(action="/checkers" method="POST")
               label(for="checker")
