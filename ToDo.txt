@@ -1,3 +1,0 @@
-Set up Sequelize Migrations and connect it to form.
-
-When submit it should increase integer in db.

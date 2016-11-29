@@ -1,7 +1,7 @@
 html
   head
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css', integrity='sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi', crossorigin='anonymous')
-  body
+    link(rel='stylesheet', href='/box.css')
     br
     br
     .container
@@ -19,34 +19,26 @@ html
         br
         .row
           .col-md-2
-            .card.card-outline-primary.text-xs-center
-              .card-block
-                | 1
+            .box: h1 x
           .col-md-2
-            .card.card-outline-primary.text-xs-center
-              .card-block
-                | 2
+            .box: h1 x
           .col-md-2
-            .card.card-outline-primary.text-xs-center
-              .card-block
-                | 3
+            .box: h1 x
           .col-md-2
-            .card.card-outline-primary.text-xs-center
-              .card-block
-                | 4
+            form(action="/checkers" id="checkerForm" method="POST")
+              button(type='submit' class="ghost-btn")
+                #today.box
+                  h1.today|x
           .col-md-2
-            .card.card-outline-primary.text-xs-center
-              .card-block
-                | 5
+            .box: h1
         br
 
-        .row
-          .form-group
-            form(action="/checkers" method="POST")
-              label(for="checker")
-              button(type='submit' class="btn btn-sm btn-secondary") Update Checker
-
-
+        //- .row
+        //-   .form-group
+        //-     form(action="/checkers" id="checkerForm" method="POST")
+        //-       label(for="checker")
+        //-       button(type='submit' class="btn btn-sm btn-secondary") Update Checker
+        //-
 
 
 
