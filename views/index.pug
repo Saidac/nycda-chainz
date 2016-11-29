@@ -13,7 +13,7 @@ html
           form(action="/challenges" method="POST")
             .form-group
               label(for="challenge-days") Days
-              input(name="days" class="form-control" id="challenge-days")
+              input(type="number" name="days" min="1" max="7" class="form-control" id="challenge-days")
             div(class="form-group text-xs-right")
               button(type='submit' class="btn btn-lg btn-secondary") Create Challenge
 

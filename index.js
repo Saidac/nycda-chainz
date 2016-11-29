@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.post('/challenge', (req, res) => {
+app.post('/challenges', (req, res) => {
   console.log('creating challenge');
   db.Challenge.create(req.body).then((challenge) => {
     res.redirect('/');
