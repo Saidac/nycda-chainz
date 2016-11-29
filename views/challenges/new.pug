@@ -1,0 +1,22 @@
+extends ../application.pug
+block content
+	.container
+		.row
+			.col-xs-8.offset-xs-2
+				form(action="/challenges" method="POST")
+					.form-group
+						label(for="")  Name of challenge
+						input(type="" class="form-control" name="[challenge]name" )
+					.form-group
+						label(for="")  Amount of bet
+						input(type="" class="form-control" name="[challenge]pot" )
+					.form-group
+						label(for="") Numbers of Days
+						input(type="" class="form-control" name="[challenge]numberOfDay" )
+					.form-group
+						label(for="")  Email of participant
+						input(type="" class="form-control" name="[participant]email" )
+					.form-group
+						label(for="") What is your task?
+						input(type="" class="form-control" name="[task]name" )
+					button(type="submit" class="btn btn-success") Create challenge

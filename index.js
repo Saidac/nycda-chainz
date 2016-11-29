@@ -31,29 +31,48 @@ app.set('view engine', 'pug');
     res.render('users/new');
  });
 app.get('/login', (req, res) => {
-  res.redirect('/admin');
+  res.redirect('/');
 });
-
-app.get('/admin', (req, res) => {
-  res.render('users/login');
-});
-app.get('/challenge', (req, res) => {
-  res.render('challenge/index');
-});
-app.get('/admin/challenge/new', (req, res) => {
-  res.render('challenge/new');
+// app.get('/', (req, res) => {
+//   res.render('users/login');
+// });
+app.get('/challenges', (req, res) => {
+  db.Challenge.findAll().then((challenges) => {
+      res.render('challenges/new', {challenges: challenges});
+  });
 });
 app.post('/users', (req, res) => {
   var user = req.body;
   db.User.create(user).then((user) => {
-      res.redirect('/admin');
+      res.redirect('/');
   });
 });
 app.post('/login', (req, res) => {
 
 });
-app.post('/challenge', (req, res) => {
-
+app.post('/challenges/new', (req, res) => {
+  res.redirect('/challenges/new');
+});
+app.post('/challenges', (req, res) => {
+   challenge= req.body ;
+  db.Challenge.create(challenge).then((challenge) => {
+    res.redirect('/challenges');
+  });
+//   db.Challenge.create(req.body.challenge).then((challenge) => {
+//
+//     // db.Task.create({
+//     //   name: req.body.task.name,
+//     //   userId: currentUser.id,
+//     //   challengeId: challenge.id
+//     // }).then((task) => {
+//     //   db.User.create({
+//     //     email: req.body.participant.email
+//     //   }).then((participant) => {
+//     //     // instead send this email for now:
+//     //     // you've been challenged by user.email
+//     //   });
+//     // });
+//   });
 });
 db.sequelize.sync().then(() => {
   app.listen(3000, () => {

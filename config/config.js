@@ -1,6 +1,6 @@
-{
+module.exports = {
   "development": {
-    "username": "zahra120",
+    "username": process.env.DB_USERNAME,
     "password": null,
     "database": "chainz",
     "host": "127.0.0.1",

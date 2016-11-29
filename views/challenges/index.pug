@@ -3,12 +3,14 @@ block content
 	.container
 		.row
 			.col-xs-8.offset-xs-4
-				if(challenge)
+				if challenge
 					h3 Chainz
+					each challenge in challenges
+						h3= challenge.name
 				else
 					h3 ...Oh la La
 					h5 Looks like you have no
 					h5 challenges, lets createTable
 					h5 a new one!
-					form(action= "/login" method= "POST")
-					button(type="submit" class="btn btn-success") Create a new challenge
+					form(action="/challenges/new" method="POST")
+						button(type="submit" class="btn btn-success") Create a new challenge
