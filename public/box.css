@@ -15,3 +15,7 @@
 #today.box:hover {
   background-color: #ffff99;
 }
+
+#today.box:active {
+  background-color: #ccff99;
+}
