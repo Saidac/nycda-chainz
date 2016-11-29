@@ -28,7 +28,7 @@ body {
   color: #000;
 }
 
-.today{
+.today {
   margin-left: -19px;
 }
 
@@ -37,4 +37,8 @@ body {
   margin: 0px;
   padding: 0px;
   border-width: 0px;
+}
+
+.ghost-btn:focus {
+  outline:0;
 }
