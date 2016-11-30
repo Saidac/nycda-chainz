@@ -1,4 +1,5 @@
-var express = require('express');
+var express = require('express'),
+    bcrypt = require('bcrypt');
 var router = express.Router();
 var db = require('../models');
 
@@ -11,18 +12,23 @@ router.get('/register', (req, res) => {
  });
 
 router.post('/login', (req, res) => {
-  console.log(req.body);
-  db.User.findOne({
-    where: {
-      email: req.body.email
-    }
-  }).then((userInDB) => {
-        req.session.user = userInDB;
-        res.redirect('/challenges');
-
-    }).catch(() => {
-    res.redirect('/login');
-  });
+   db.User.findOne({
+      where:{
+         email: req.body.email
+      }
+   }).then((userInDb) => {
+      bcrypt.compare(req.body.password, userInDb.passwordDigest, (error, result) => {
+          if(result){
+            req.session.user = userInDb;
+            res.redirect('/challenges');
+         } else {
+            res.redirect('/login');
+         }
+      });
+   }).catch((error) => {
+     console.log(error);
+      res.redirect('/');
+   });
 });
 
 router.get('/logout', (req, res) => {
@@ -34,7 +40,7 @@ router.post('/users', (req, res) => {
   var user = req.body;
   db.User.create(user).then((user) => {
     req.session.user = user; // we are log the user in
-    res.redirect('/');
+    res.redirect('/login');
   });
 });
 

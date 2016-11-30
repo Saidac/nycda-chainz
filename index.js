@@ -5,7 +5,6 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       displayRoutes = require('express-routemap'),
       pg = require('pg'),
-      bcrypt = require('bcrypt'),
       session = require('express-session');
 
 var app = express(),
@@ -51,8 +50,8 @@ app.post('/challenges', (req, res) => {
   db.Challenge.create(req.body.challenge).then((challenge) => {
     db.Task.create({
       name: req.body.task.name,
-      userId: 1, // change this to req.session.user.id for the right logic
-      challengeId: challenge.id
+      userId: req.session.user.id, // change this to req.session.user.id for the right logic
+      challengeId: req.body.challenge.id
     }).then((task) => {
       db.User.create({
         email: req.body.participant.email
@@ -62,13 +61,9 @@ app.post('/challenges', (req, res) => {
         // you've been challenged by user.email
       });
     });
-
     res.redirect('/challenges');
   });
-//   db.Challenge.create(req.body.challenge).then((challenge) => {
-//
 
-//   });
 });
 
 app.post('/checkers', (req, res) => {
