@@ -1,7 +1,6 @@
 const express = require('express'),
       pug     = require('pug'),
       morgan = require('morgan'),
-      sequelize = require('sequelize'),
       nodemailer = require('nodemailer'),
       bodyParser = require('body-parser'),
       displayRoutes = require('express-routemap'),
@@ -13,7 +12,8 @@ var app = express(),
     db = require('./models'),
     transporter = nodemailer.createTransport(
      'smtps://nycdaamswdi%40gmail.com:'+
-     process.env.EMAIL_PASSWORD_Blog_App+'@smtp.gmail.com');
+     process.env.EMAIL_PASSWORD_Blog_App+'@smtp.gmail.com'),
+     authenticationRoute = require('./routes/authentication');
 
 app.use(morgan('dev'));
 app.use(express.static('public'));
@@ -25,38 +25,14 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: true }
 }));
+
+app.use('/', authenticationRoute);
+
 app.set('view engine', 'pug');
 
 app.get('/', (req, res) => {
     res.render('users/new');
-
  });
-
-app.get('/login', (req, res) => {
-  res.render('users/login');
-  
-});
-
-app.get('/logout', (req, res) => {
-  req.session.user = undefined;
-  res.redirect('/');
-});
-
-app.post('/login', (req, res) => {
-  console.log(req.body);
-  db.User.findOne({
-    where: {
-      email: req.body.email
-    }
-  }).then((userInDB) => {
-        req.session.user = userInDB;
-        res.redirect('/challenges');
-
-    }).catch(() => {
-    res.redirect('/login');
-  });
-});
-
 app.get('/challenges', (req, res) => {
   db.Challenge.findAll().then((challenges) => {
       res.render('challenges/index', {challenges: challenges});
@@ -65,13 +41,6 @@ app.get('/challenges', (req, res) => {
 
 app.get('/challenges/new', (req, res) => {
   res.render('challenges/new');
-});
-
-app.post('/users', (req, res) => {
-  var user = req.body;
-  db.User.create(user).then((user) => {
-      res.redirect('/');
-  });
 });
 
 app.post('/challenges/new', (req, res) => {
