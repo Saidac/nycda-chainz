@@ -17,7 +17,7 @@ var app = express(),
 
 app.use(morgan('dev'));
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(session({
   secret: 'keyboard cat',
@@ -38,8 +38,11 @@ app.get('/login', (req, res) => {
 // });
 app.get('/challenges', (req, res) => {
   db.Challenge.findAll().then((challenges) => {
-      res.render('challenges/new', {challenges: challenges});
+      res.render('challenges/index', {challenges: challenges});
   });
+});
+app.get('/challenges/new', (req, res) => {
+  res.render('challenges/new');
 });
 app.post('/users', (req, res) => {
   var user = req.body;
@@ -54,24 +57,26 @@ app.post('/challenges/new', (req, res) => {
   res.redirect('/challenges/new');
 });
 app.post('/challenges', (req, res) => {
-   challenge= req.body ;
-  db.Challenge.create(challenge).then((challenge) => {
+  db.Challenge.create(req.body.challenge).then((challenge) => {
+    db.Task.create({
+      name: req.body.task.name,
+      userId: 1, // change this to req.session.user.id for the right logic
+      challengeId: challenge.id
+    }).then((task) => {
+      db.User.create({
+        email: req.body.participant.email
+      }).then((participant) => {
+        console.log(participant);
+        // instead send this email for now:
+        // you've been challenged by user.email
+      });
+    });
+
     res.redirect('/challenges');
   });
 //   db.Challenge.create(req.body.challenge).then((challenge) => {
 //
-//     // db.Task.create({
-//     //   name: req.body.task.name,
-//     //   userId: currentUser.id,
-//     //   challengeId: challenge.id
-//     // }).then((task) => {
-//     //   db.User.create({
-//     //     email: req.body.participant.email
-//     //   }).then((participant) => {
-//     //     // instead send this email for now:
-//     //     // you've been challenged by user.email
-//     //   });
-//     // });
+
 //   });
 });
 db.sequelize.sync().then(() => {
