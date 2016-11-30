@@ -1,0 +1,14 @@
+extends ../application.pug
+block content
+	.container
+		.row
+			.col-xs-8.offset-xs-2
+				form(action="/login" method= "POST")
+					.form-group
+						label(for="email")  Email
+						input(type="email" class="form-control" id="email" name="email" )
+					.form-group
+						label(for="password") Password
+						input(type="password" class="form-control" id="password" name="password" )
+
+					button(type="submit" class="btn btn-success") Submit

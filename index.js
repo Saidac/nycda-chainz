@@ -1,34 +1,74 @@
 const express = require('express'),
-      logger = require('morgan'),
-      bodyParser = require('body-parser'),
+      pug     = require('pug'),
       morgan = require('morgan'),
-      pug = require('pug'),
-      Sequelize = require('sequelize');
+      nodemailer = require('nodemailer'),
+      bodyParser = require('body-parser'),
+      displayRoutes = require('express-routemap'),
+      pg = require('pg'),
+      bcrypt = require('bcrypt'),
+      session = require('express-session');
 
-var db = require('./models');
+var app = express(),
+    db = require('./models'),
+    transporter = nodemailer.createTransport(
+     'smtps://nycdaamswdi%40gmail.com:'+
+     process.env.EMAIL_PASSWORD_Blog_App+'@smtp.gmail.com'),
+     authenticationRoute = require('./routes/authentication');
 
-var app = express();
+app.use(morgan('dev'));
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(morgan('dev'));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}));
 
-app.use(logger('dev'));
-
-app.use(express.static(__dirname + '/public'));
+app.use('/', authenticationRoute);
 
 app.set('view engine', 'pug');
 
-app.use(morgan('dev'));
-
-app.use(bodyParser.urlencoded({ extended: false }));
-
 app.get('/', (req, res) => {
-  console.log('rendering index');
-  res.render('index');
+    res.render('users/new');
+ });
+app.get('/challenges', (req, res) => {
+  db.Challenge.findAll().then((challenges) => {
+      res.render('challenges/index', {challenges: challenges});
+  });
+});
+
+app.get('/challenges/new', (req, res) => {
+  res.render('challenges/new');
+});
+
+app.post('/challenges/new', (req, res) => {
+  res.redirect('/challenges/new');
 });
 
 app.post('/challenges', (req, res) => {
-  console.log('creating challenge');
-  db.Challenge.create(req.body).then((challenge) => {
-    res.redirect('/');
+  db.Challenge.create(req.body.challenge).then((challenge) => {
+    db.Task.create({
+      name: req.body.task.name,
+      userId: 1, // change this to req.session.user.id for the right logic
+      challengeId: challenge.id
+    }).then((task) => {
+      db.User.create({
+        email: req.body.participant.email
+      }).then((participant) => {
+        console.log(participant);
+        // instead send this email for now:
+        // you've been challenged by user.email
+      });
+    });
+
+    res.redirect('/challenges');
   });
+//   db.Challenge.create(req.body.challenge).then((challenge) => {
+//
+
+//   });
 });
 
 app.post('/checkers', (req, res) => {
@@ -38,6 +78,9 @@ app.post('/checkers', (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Web server is running on port 3000');
+db.sequelize.sync().then(() => {
+  app.listen(3000, () => {
+    console.log('Web Server is running on port 3000');
+    displayRoutes(app);
+  });
 });
