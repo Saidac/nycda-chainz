@@ -71,9 +71,16 @@ app.post('/challenges', (req, res) => {
 //   });
 });
 
+app.post('/checkers', (req, res) => {
+  console.log('posting checker');
+  db.Checker.create(req.body).then((checker) => {
+    res.redirect('/');
+  });
+});
+
 db.sequelize.sync().then(() => {
   app.listen(3000, () => {
-      console.log('Web Server is running on port 3000');
-      displayRoutes(app);
-    });
+    console.log('Web Server is running on port 3000');
+    displayRoutes(app);
   });
+});

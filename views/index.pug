@@ -1,0 +1,52 @@
+html
+  head
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css', integrity='sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi', crossorigin='anonymous')
+    link(rel='stylesheet', href='/box.css')
+    br
+    br
+    .container
+      .col-md-6.offset-md-3
+        .row
+          h1  Chainz Test Zone
+          hr
+          h3  5 day static test
+          //- form(action="/challenges" method="POST")
+          //-   .form-group
+          //-     label(for="challenge-days") Create 3 Day challenge
+          //-     input(type="radio" name="days" value=3 class="form-control" id="challenge-days")
+          //-   div(class="form-group text-xs-right")
+          //-     button(type='submit' class="btn btn-sm btn-secondary") Create Challenge
+        br
+        .row
+          .col-md-2
+            .box: h1 x
+          .col-md-2
+            .box: h1 x
+          .col-md-2
+            .box: h1 x
+          .col-md-2
+            form(action="/checkers" id="checkerForm" method="POST")
+              button(type='submit' class="ghost-btn")
+                #today.box
+                  h1.today|x
+          .col-md-2
+            .box: h1
+        br
+
+        //- .row
+        //-   .form-group
+        //-     form(action="/checkers" id="checkerForm" method="POST")
+        //-       label(for="checker")
+        //-       button(type='submit' class="btn btn-sm btn-secondary") Update Checker
+        //-
+
+
+
+
+
+
+
+
+
+
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js', integrity='sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK', crossorigin='anonymous')
