@@ -20,7 +20,7 @@ module.exports = {
       length: {
         type: Sequelize.INTEGER
       },
-      winnerId: {
+      WinnerId: {
         type: Sequelize.INTEGER
       },
       createdAt: {

@@ -5,17 +5,17 @@ block content
 			.col-xs-8.offset-xs-2
 				form(action= "/users" method= "POST")
 					.form-group
-						label(for="")  Name
-						input(type="" class="form-control" name="name" )
+						label(for="name")  Name
+						input(type="text" class="form-control" id="name" name="name" )
 					.form-group
-						label(for="")  Surname
-						input(type="" class="form-control" name="surname" )
+						label(for="surname")  Surname
+						input(type="text" class="form-control" id="surname" name="surname" )
 					.form-group
-						label(for="")  Email
-						input(type="" class="form-control" name="email" )
+						label(for="email")  Email
+						input(type="email" class="form-control" id="email" name="email" )
 					.form-group
-						label(for="") Password
-						input(type="" class="form-control" name="password" )
+						label(for="password") Password
+						input(type="password" class="form-control" id="password" name="password" )
 
 					button(type="submit" class="btn btn-success") register
 					hr

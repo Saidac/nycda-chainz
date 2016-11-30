@@ -4,14 +4,14 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     active: DataTypes.BOOLEAN,
     pot: DataTypes.INTEGER,
-    numberOfDay: DataTypes.INTEGER,
-    winnerId: DataTypes.INTEGER
+    numberOfDays: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
         this.hasMany(models.User);
         this.hasMany(models.Task);
+
       }
     }
   });

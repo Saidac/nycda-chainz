@@ -5,9 +5,9 @@ const express = require('express'),
       nodemailer = require('nodemailer'),
       bodyParser = require('body-parser'),
       displayRoutes = require('express-routemap'),
-       pg = require('pg'),
-       bcrypt = require('bcrypt'),
-       session = require('express-session');
+      pg = require('pg'),
+      bcrypt = require('bcrypt'),
+      session = require('express-session');
 
 var app = express(),
     db = require('./models'),
@@ -27,34 +27,32 @@ app.use(session({
 }));
 app.set('view engine', 'pug');
 
- app.get('/', (req, res) => {
+app.get('/', (req, res) => {
     res.render('users/new');
+
  });
+
 app.get('/login', (req, res) => {
   res.render('users/login');
+  
 });
 
 app.get('/logout', (req, res) => {
   req.session.user = undefined;
   res.redirect('/');
 });
+
 app.post('/login', (req, res) => {
   console.log(req.body);
-
   db.User.findOne({
     where: {
       email: req.body.email
     }
   }).then((userInDB) => {
-    bcrypt.compare(req.body.password, userInDB.password, (error, result) => {
-      if (result) {
         req.session.user = userInDB;
-        res.redirect('/');
-      } else {
-        res.redirect('/login');
-      }
-    });
-  }).catch(() => {
+        res.redirect('/challenges');
+
+    }).catch(() => {
     res.redirect('/login');
   });
 });
@@ -64,22 +62,22 @@ app.get('/challenges', (req, res) => {
       res.render('challenges/index', {challenges: challenges});
   });
 });
+
 app.get('/challenges/new', (req, res) => {
   res.render('challenges/new');
 });
+
 app.post('/users', (req, res) => {
   var user = req.body;
   db.User.create(user).then((user) => {
       res.redirect('/');
   });
 });
-app.post('/login', (req, res) => {
 
-
-});
 app.post('/challenges/new', (req, res) => {
   res.redirect('/challenges/new');
 });
+
 app.post('/challenges', (req, res) => {
   db.Challenge.create(req.body.challenge).then((challenge) => {
     db.Task.create({
@@ -103,9 +101,10 @@ app.post('/challenges', (req, res) => {
 
 //   });
 });
+
 db.sequelize.sync().then(() => {
   app.listen(3000, () => {
       console.log('Web Server is running on port 3000');
-       displayRoutes(app);
+      displayRoutes(app);
     });
   });
