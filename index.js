@@ -31,11 +31,34 @@ app.set('view engine', 'pug');
     res.render('users/new');
  });
 app.get('/login', (req, res) => {
+  res.render('users/login');
+});
+
+app.get('/logout', (req, res) => {
+  req.session.user = undefined;
   res.redirect('/');
 });
-// app.get('/', (req, res) => {
-//   res.render('users/login');
-// });
+app.post('/login', (req, res) => {
+  console.log(req.body);
+
+  db.User.findOne({
+    where: {
+      email: req.body.email
+    }
+  }).then((userInDB) => {
+    bcrypt.compare(req.body.password, userInDB.password, (error, result) => {
+      if (result) {
+        req.session.user = userInDB;
+        res.redirect('/');
+      } else {
+        res.redirect('/login');
+      }
+    });
+  }).catch(() => {
+    res.redirect('/login');
+  });
+});
+
 app.get('/challenges', (req, res) => {
   db.Challenge.findAll().then((challenges) => {
       res.render('challenges/index', {challenges: challenges});
@@ -51,6 +74,7 @@ app.post('/users', (req, res) => {
   });
 });
 app.post('/login', (req, res) => {
+
 
 });
 app.post('/challenges/new', (req, res) => {
