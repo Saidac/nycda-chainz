@@ -4,20 +4,16 @@ html
     link(rel='stylesheet', href='/box.css')
     br
     br
-    .container
-      .col-md-6.offset-md-3
-        .row
+    .container-fluid
+      .row
+        .col-md-6.offset-md-3
           h1  Chainz Test Zone
           hr
-          h3  5 day static test
-          //- form(action="/challenges" method="POST")
-          //-   .form-group
-          //-     label(for="challenge-days") Create 3 Day challenge
-          //-     input(type="radio" name="days" value=3 class="form-control" id="challenge-days")
-          //-   div(class="form-group text-xs-right")
-          //-     button(type='submit' class="btn btn-sm btn-secondary") Create Challenge
-        br
-        .row
+          p: h3  5 day static test
+      .row
+        .col-md-8.offset-md-2
+          .col-md-2
+            .username: h1 user
           .col-md-2
             .box: h1 x
           .col-md-2
@@ -31,18 +27,6 @@ html
                   h1.today|x
           .col-md-2
             .box: h1
-        br
-
-        //- .row
-        //-   .form-group
-        //-     form(action="/checkers" id="checkerForm" method="POST")
-        //-       label(for="checker")
-        //-       button(type='submit' class="btn btn-sm btn-secondary") Update Checker
-        //-
-
-
-
-
 
 
 

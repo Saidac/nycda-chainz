@@ -2,7 +2,7 @@ body {
   background-color: #ccc;
 }
 
-.box, .ghost-btn {
+.box, .username {
   width: 90px;
   height: 82px;
   display: inline-block;
@@ -12,6 +12,12 @@ body {
   border-width: 15px;
   border-color: white;
   background-color: #ffff99;
+}
+
+.username {
+  width: 180px;
+  padding-left: 0px;
+  background-color: #fff;
 }
 
 #today.box {
