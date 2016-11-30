@@ -1,23 +1,23 @@
-{
+module.exports = {
   "development": {
-    "username": "wille",
+    "username": process.env.DB_USERNAME,
     "password": null,
     "database": "chainz",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "username": "wille",
+    "username": process.env.DB_USERNAME,
     "password": null,
     "database": "chainz",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "username": "wille",
+    "username": process.env.DB_USERNAME,
     "password": null,
     "database": "chainz",
     "host": "127.0.0.1",
     "dialect": "postgres"
   }
-}
+};

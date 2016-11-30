@@ -20,7 +20,7 @@ module.exports = {
       days: {
         type: Sequelize.INTEGER
       },
-      winnerid: {
+      WinnerId: {
         type: Sequelize.INTEGER
       },
       createdAt: {
