@@ -19,10 +19,7 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(session({
-  secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: true,
-  cookie: { secure: true }
+  secret: 'keyboard cat'
 }));
 
 app.use('/', authenticationRoute);
@@ -32,26 +29,24 @@ app.set('view engine', 'pug');
 app.get('/', (req, res) => {
     res.render('users/new');
  });
+
 app.get('/challenges', (req, res) => {
   db.Challenge.findAll().then((challenges) => {
-      res.render('challenges/index', {challenges: challenges});
+      res.render('challenges/index', { challenges: challenges });
   });
 });
 
 app.get('/challenges/new', (req, res) => {
+  console.log(req.session.user);
   res.render('challenges/new');
-});
-
-app.post('/challenges/new', (req, res) => {
-  res.redirect('/challenges/new');
 });
 
 app.post('/challenges', (req, res) => {
   db.Challenge.create(req.body.challenge).then((challenge) => {
     db.Task.create({
       name: req.body.task.name,
-      userId: req.session.user.id, // change this to req.session.user.id for the right logic
-      challengeId: req.body.challenge.id
+      UserId: req.session.user.id, 
+      ChallengeId:  challenge.id
     }).then((task) => {
       db.User.create({
         email: req.body.participant.email
