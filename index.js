@@ -68,13 +68,13 @@ app.post('/challenges', (req, res) => {
 
         transporter.sendMail(mailOptions, function(error, info){
             if(error){
-                return console.log(error);
+              return console.log(error);
             }
             console.log('Message sent: ' + info.response);
           });
       });
     });
-    res.redirect('/challenges');
+    res.redirect('/wait');
   });
 
 });
