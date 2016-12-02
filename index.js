@@ -40,20 +40,39 @@ app.get('/challenges/new', (req, res) => {
   console.log(req.session.user);
   res.render('challenges/new');
 });
+app.get('/wait', (req, res) => {
+  res.render('challenges/wait');
+});
 
 app.post('/challenges', (req, res) => {
   db.Challenge.create(req.body.challenge).then((challenge) => {
     db.Task.create({
       name: req.body.task.name,
-      UserId: req.session.user.id, 
+      UserId: req.session.user.id,
       ChallengeId:  challenge.id
     }).then((task) => {
       db.User.create({
         email: req.body.participant.email
       }).then((participant) => {
+        console.log('patricipant is');
         console.log(participant);
         // instead send this email for now:
         // you've been challenged by user.email
+        var mailOptions = {
+          from: '"Fred Foo 👥" <foo@blurdybloop.com>', // sender address
+          to: participant.email, // list of receivers
+          subject: 'Hello ', // Subject line
+          text: 'Hello world 🐴', // plaintext body
+          html: '<b>Hello world 🐴</b>' // html body
+          };
+
+// send mail with defined transport object
+transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+        return console.log(error);
+    }
+    console.log('Message sent: ' + info.response);
+  });
       });
     });
     res.redirect('/challenges');
