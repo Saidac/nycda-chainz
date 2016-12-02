@@ -1,8 +1,4 @@
-body {
-  background-color: #ccc;
-}
-
-.box, .username {
+.checker, .ghost-btn {
   width: 90px;
   height: 82px;
   display: inline-block;
@@ -14,28 +10,22 @@ body {
   background-color: #ffff99;
 }
 
-.username {
-  width: 180px;
-  padding-left: 0px;
-  background-color: #fff;
-}
-
-#today.box {
+#today.checker {
   background-color: #ffcccc;
   color: #ffcccc;
 }
 
-#today.box:hover {
+#today.checker:hover {
   background-color: #ffcccc;
   color: #fff;
 }
 
-#today.box:active {
+#today.checker:active {
   background-color: #ccff99;
   color: #000;
 }
 
-.today {
+.todaymargin {
   margin-left: -19px;
 }
 

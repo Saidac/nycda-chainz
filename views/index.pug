@@ -1,7 +1,6 @@
 html
   head
     link(rel='stylesheet', href="/css/application.css")
-    link(rel='stylesheet', href="/css/box.css")
   body
     br
     br
@@ -16,28 +15,17 @@ html
           .col-md-2
             .username: h1 user
           .col-md-2
-            .box: h1 x
+            .checker: h1 x
           .col-md-2
-            .box: h1 x
+            .checker: h1 x
           .col-md-2
-            .box: h1 x
+            .checker: h1 x
           .col-md-2
             form(action="/checkers" id="checkerForm" method="POST")
               button(type='submit' class="ghost-btn")
-                #today.box
-                  h1.today|x
+                #today.checker
+                  h1.todaymargin|x
           .col-md-2
-            .box: h1
-      .row
-        button.btn.btn-primary(type='button') Primary
-      .row
-        .col-md-8.offset-md-2
-          .card-deck-wrapper
-            .card-deck
-              .card.card-block: h1 x
-              .card.card-block: h1 x
-              //- form(action="/checkers" id="checkerForm" method="POST")
-              //-   button(type='submit' class="ghost-btn")
-              //-     .card.card-block: h1 x
-              .card.card-block: h1 x
+            .chcker: h1 x
+
   script(src='/js/application.js')
