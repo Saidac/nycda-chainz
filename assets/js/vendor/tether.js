@@ -571,7 +571,7 @@ class TetherClass extends Evented {
         right: pageXOffset - left - width + innerWidth
       }
     };
-    
+
     var doc = this.target.ownerDocument;
     var win = doc.defaultView;
 
