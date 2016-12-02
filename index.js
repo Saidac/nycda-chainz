@@ -5,7 +5,6 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       displayRoutes = require('express-routemap'),
       pg = require('pg'),
-      bcrypt = require('bcrypt'),
       session = require('express-session');
 
 var app = express(),
@@ -20,10 +19,7 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(session({
-  secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: true,
-  cookie: { secure: true }
+  secret: 'keyboard cat'
 }));
 
 app.use('/', authenticationRoute);
@@ -33,9 +29,10 @@ app.set('view engine', 'pug');
 app.get('/', (req, res) => {
     res.render('users/new');
  });
+
 app.get('/challenges', (req, res) => {
   db.Challenge.findAll().then((challenges) => {
-      res.render('challenges/index', {challenges: challenges});
+      res.render('challenges/index', { challenges: challenges });
   });
 });
 
@@ -43,32 +40,40 @@ app.get('/challenges/new', (req, res) => {
   res.render('challenges/new');
 });
 
-app.post('/challenges/new', (req, res) => {
-  res.redirect('/challenges/new');
+app.get('/wait', (req, res) => {
+  res.render('challenges/wait');
 });
 
 app.post('/challenges', (req, res) => {
   db.Challenge.create(req.body.challenge).then((challenge) => {
     db.Task.create({
       name: req.body.task.name,
-      userId: 1, // change this to req.session.user.id for the right logic
-      challengeId: challenge.id
+      UserId: req.session.user.id,
+      ChallengeId:  challenge.id
     }).then((task) => {
       db.User.create({
         email: req.body.participant.email
       }).then((participant) => {
+        console.log('patricipant is');
         console.log(participant);
-        // instead send this email for now:
-        // you've been challenged by user.email
+        var mailOptions = {
+          from: '"Fred Foo 👥" <foo@blurdybloop.com>',
+          to: participant.email,
+          subject: 'Invitation to challenge',
+          text: ` Hello,
+          You has been invited to do a challenge, Please click this below link to see the details`
+          };
+        transporter.sendMail(mailOptions, function(error, info){
+            if(error){
+              return console.log(error);
+            }
+            console.log('Message sent: ' + info.response);
+          });
       });
     });
-
-    res.redirect('/challenges');
+    res.redirect('/wait');
   });
-//   db.Challenge.create(req.body.challenge).then((challenge) => {
-//
 
-//   });
 });
 
 app.post('/checkers', (req, res) => {
