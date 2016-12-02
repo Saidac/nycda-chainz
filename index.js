@@ -37,9 +37,9 @@ app.get('/challenges', (req, res) => {
 });
 
 app.get('/challenges/new', (req, res) => {
-  console.log(req.session.user);
   res.render('challenges/new');
 });
+
 app.get('/wait', (req, res) => {
   res.render('challenges/wait');
 });
@@ -61,11 +61,8 @@ app.post('/challenges', (req, res) => {
           to: participant.email,
           subject: 'Invitation to challenge',
           text: ` Hello,
-          You has been invited to do a challenge , Please click this below link to see the details`
-
+          You has been invited to do a challenge, Please click this below link to see the details`
           };
-
-
         transporter.sendMail(mailOptions, function(error, info){
             if(error){
               return console.log(error);
