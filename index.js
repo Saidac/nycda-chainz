@@ -56,23 +56,22 @@ app.post('/challenges', (req, res) => {
       }).then((participant) => {
         console.log('patricipant is');
         console.log(participant);
-        // instead send this email for now:
-        // you've been challenged by user.email
         var mailOptions = {
-          from: '"Fred Foo 👥" <foo@blurdybloop.com>', // sender address
-          to: participant.email, // list of receivers
-          subject: 'Hello ', // Subject line
-          text: 'Hello world 🐴', // plaintext body
-          html: '<b>Hello world 🐴</b>' // html body
+          from: '"Fred Foo 👥" <foo@blurdybloop.com>',
+          to: participant.email,
+          subject: 'Invitation to challenge',
+          text: ` Hello,
+          You has been invited to do a challenge , Please click this below link to see the details`
+
           };
 
-// send mail with defined transport object
-transporter.sendMail(mailOptions, function(error, info){
-    if(error){
-        return console.log(error);
-    }
-    console.log('Message sent: ' + info.response);
-  });
+
+        transporter.sendMail(mailOptions, function(error, info){
+            if(error){
+                return console.log(error);
+            }
+            console.log('Message sent: ' + info.response);
+          });
       });
     });
     res.redirect('/challenges');
