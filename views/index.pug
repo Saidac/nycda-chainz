@@ -1,32 +1,47 @@
 html
   head
     link(rel='stylesheet', href="/css/application.css")
-
   body
     br
     br
-    .container-fluid
-      .row
-        .col-md-6.offset-md-3
-          h1  Chainz Test Zone
-          hr
-          p: h3  5 day static test
-      .row
-        .col-md-8.offset-md-2
-          .col-md-2
-            .username: h1 user
-          .col-md-2
-            .checker: h1 x
-          .col-md-2
-            .checker: h1 x
-          .col-md-2
-            .checker: h1 x
-          .col-md-2
-            form(action="/checkers" id="checkerForm" method="POST")
-              button(type='submit' class="ghost-btn")
-                #today.checker
-                  h1.todaymargin|x
-          .col-md-2
-            .checker: h1 x
+    .container
+      .challenge-name: h4 Super Mega Challenge
+      .chainz-layout
+        .chainz-col
+          .checker-grid
+            .checker-row
+              #topleftcorner.username.top: h5.truncate Biggie
+              .checker.top: h1 x
+              .checker.top: h1 x
+              .checker.top: h1 x
+              form(action="/checkers" id="checkerForm" method="POST" style=" display:inline!important;")
+                button(type='submit' class="ghost-btn")
+                  #today.checker.top
+                    h1 x
+              .checker.top: h1
+            .checker-row
+              #bottomleftcorner.username.bottom: h5.truncate Tupac
+              .checker.bottom: h1 x
+              .checker.bottom: h1 x
+              .checker.bottom: h1 x
+              form(action="/checkers" id="checkerForm" method="POST" style=" display:inline!important;")
+                button(type='submit' class="ghost-btn")
+                  #today.checker.bottom
+                    h1 x
+              .checker.bottom: h1
+        .chainz-col
+          .pot: h1 €80
 
-  script(src='/js/application.js')
+
+
+    script(src='/js/application.js')
+
+
+
+//- .container
+//-   .col-md-8.offset-md-1
+//-     h1  Chainz Test Zone
+//-     hr
+//-     p: h3  5 day static test
+//-     br
+//-     hr

@@ -1,13 +1,95 @@
-.checker, .ghost-btn {
-  width: 90px;
-  height: 82px;
-  display: inline-block;
+$checker-width: 90px;
+$checker-height: 74.5px;
+$border-width: 15px;
+
+.checker-grid {
+  display: table;
+  width: $checker-width * 7;
+}
+
+.chainz-layout {
+  display: table;
+  width: 100%;
+}
+
+.chainz-col {
+  display: table-cell;
+  width: $checker-width * 7;
+  text-align: center;
+  vertical-align: middle;
   margin: 0px;
-  padding-left: 19px;
+  padding-left: 0px;
+  border-width: 0px;
+  background-color: transparent;
+}
+
+.checker-row {
+  display: table-row;
+}
+
+.checker, .ghost-btn, .username {
+  width: $checker-width;
+  height: $checker-height;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  margin: 0px;
+  padding-left: 0px;
   border-style: solid;
-  border-width: 15px;
-  border-color: white;
+  border-width: $border-width;
+  border-color: #fff;
   background-color: #ffff99;
+}
+
+.top {
+  border-bottom-width: $border-width / 2;
+}
+
+.bottom {
+  border-top-width: $border-width / 2;
+}
+
+.username, .pot {
+  width: $checker-width * 2;
+  border-width: 15px;
+  border-right-width: 0px;
+  padding-top: 10px;
+  border-color: #fff;
+  background-color: #fff;
+}
+
+.pot {
+  height: $checker-height * 2;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  // border-top-right-radius: 50%;
+  // border-bottom-right-radius: 50%;
+}
+
+.challenge-name {
+  height: 82px;
+  width: $checker-width * 9;
+  margin: 0px;
+  padding-top: 31px;
+  border-width: 0px;
+  background-color: #fff;
+  text-align: center;
+}
+
+h4 {
+  text-decoration: underline;
+}
+
+.truncate {
+  width: $checker-width * 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#checkerForm {
+  display: inline-block;
 }
 
 #today.checker {
@@ -23,10 +105,6 @@
 #today.checker:active {
   background-color: #ccff99;
   color: #000;
-}
-
-.todaymargin {
-  margin-left: -19px;
 }
 
 .ghost-btn {

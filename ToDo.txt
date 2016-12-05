@@ -1,0 +1,12 @@
+HTML/css
+Make user box
+Make Pot box
+Table caption
+Center vertically and horizontally with bootstrap
+
+Sequelize
+connect components to db. Make them update.
+
+
+Multiline truncate for username
+http://hackingui.com/front-end/a-pure-css-solution-for-multiline-text-truncation/
