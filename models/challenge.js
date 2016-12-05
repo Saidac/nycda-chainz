@@ -4,7 +4,9 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     active: DataTypes.BOOLEAN,
     pot: DataTypes.INTEGER,
-    numberOfDays: DataTypes.INTEGER
+    numberOfDays: DataTypes.INTEGER,
+    uuid: DataTypes.STRING
+
   }, {
     classMethods: {
       associate: function(models) {

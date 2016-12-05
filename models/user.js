@@ -4,7 +4,15 @@ module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
     name: DataTypes.STRING,
     surname: DataTypes.STRING,
-    email: DataTypes.STRING,
+    email:{
+      type:DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Email cannot be empty'
+        }
+      }
+    } ,
     password:{
       type: DataTypes.VIRTUAL,
       set: function(password){
@@ -13,13 +21,14 @@ module.exports = function(sequelize, DataTypes) {
 
   },
     passwordDigest: DataTypes.STRING
-  }, {
+  },
+    {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
          this.belongsTo(models.Challenge);
          this.hasMany(models.Task);
-         
+
       }
     }
   });
