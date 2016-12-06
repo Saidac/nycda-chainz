@@ -1,0 +1,23 @@
+extends ../application.pug
+block content
+	.container
+		.row
+			.col-xs-8.offset-xs-2
+				form(action= "/users" method= "POST")
+					.form-group
+						label(for="name")  Name
+						input(type="text" class="form-control" id="name" name="name" )
+					.form-group
+						label(for="surname")  Surname
+						input(type="text" class="form-control" id="surname" name="surname" )
+					.form-group
+						label(for="email")  Email
+						input(type="email" class="form-control" id="email" name="email" )
+					.form-group
+						label(for="password") Password
+						input(type="password" class="form-control" id="password" name="password" )
+
+					button(type="submit" class="btn btn-success") register
+					hr
+					a(href="/login")
+						| I am already signed up!
