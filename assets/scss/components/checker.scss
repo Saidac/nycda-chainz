@@ -59,7 +59,7 @@ $border-width: 15px;
 }
 
 .pot {
-  height: $checker-height * 2;
+  height: $checker-height * 2 + 1px;
   display: table-cell;
   text-align: center;
   vertical-align: middle;

@@ -5,6 +5,7 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       displayRoutes = require('express-routemap'),
       pg = require('pg'),
+      moment = require('moment'),
       session = require('express-session');
 
 var app = express(),
@@ -22,6 +23,8 @@ app.use(session({
   secret: 'keyboard cat'
 }));
 
+app.use(moment().format());
+
 app.use('/', authenticationRoute);
 
 app.set('view engine', 'pug');
@@ -29,6 +32,10 @@ app.set('view engine', 'pug');
 app.get('/', (req, res) => {
     res.render('users/new');
  });
+
+app.get('/index', (req, res) => {
+   res.render('index');
+});
 
 app.get('/challenges', (req, res) => {
   db.Challenge.findAll().then((challenges) => {
