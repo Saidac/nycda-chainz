@@ -4,22 +4,32 @@ module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
     name: DataTypes.STRING,
     surname: DataTypes.STRING,
-    email: DataTypes.STRING,
+    email:{
+      type:DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: 'Email cannot be empty'
+        }
+      }
+    } ,
     password:{
       type: DataTypes.VIRTUAL,
       set: function(password){
-        this.setDataValue('passwordDigest', bcrypt.hashSync(password, 10));
+        return this.setDataValue('passwordDigest', bcrypt.hashSync(password, 10));
     }
 
   },
-    passwordDigest: DataTypes.STRING
-  }, {
+    passwordDigest: {
+      type: DataTypes.STRING,
+    }
+  },
+    {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
          this.belongsTo(models.Challenge);
          this.hasMany(models.Task);
-         
+
       }
     }
   });

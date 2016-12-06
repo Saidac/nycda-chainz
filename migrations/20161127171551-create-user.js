@@ -15,10 +15,17 @@ module.exports = {
         type: Sequelize.STRING
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
       },
-      password: {
-        type: Sequelize.STRING
+  
+      ChallengeId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Challenges',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,
