@@ -1,0 +1,15 @@
+extends ../application.pug
+block content
+	.container
+		.row
+			.col-xs-8.offset-xs-4
+				h2 Chainz
+				h5= challenge.name
+				form(action="/tasks/new" method="POST")
+					.form-group
+						label(for="task") What is your task?
+						input(type="text" class="form-control"  id="task" name="task[name]" required)
+					.form-group
+						label(for="password") Password
+						input(type="password" class="form-control" id="password" name="participant[password]" )
+					button(type="submit" class="btn btn-success") Create task
