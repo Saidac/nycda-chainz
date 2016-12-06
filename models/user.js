@@ -6,7 +6,6 @@ module.exports = function(sequelize, DataTypes) {
     surname: DataTypes.STRING,
     email:{
       type:DataTypes.STRING,
-      allowNull: false,
       validate: {
         notEmpty: {
           msg: 'Email cannot be empty'
@@ -16,11 +15,13 @@ module.exports = function(sequelize, DataTypes) {
     password:{
       type: DataTypes.VIRTUAL,
       set: function(password){
-        this.setDataValue('passwordDigest', bcrypt.hashSync(password, 10));
+        return this.setDataValue('passwordDigest', bcrypt.hashSync(password, 10));
     }
 
   },
-    passwordDigest: DataTypes.STRING
+    passwordDigest: {
+      type: DataTypes.STRING,
+    }
   },
     {
     classMethods: {

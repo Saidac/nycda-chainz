@@ -2,7 +2,7 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-      queryInterface.addColumn('Tasks','UserId', Sequelize.INTEGER);
+      // queryInterface.addColumn('Tasks','UserId', Sequelize.INTEGER);
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
@@ -13,7 +13,7 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-    queryInterface.removeColumn('Tasks','UserId', Sequelize.INTEGER);
+    // queryInterface.removeColumn('Tasks','UserId', Sequelize.INTEGER);
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.

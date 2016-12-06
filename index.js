@@ -73,20 +73,6 @@ app.post('/challenges', (req, res) => {
               console.log('Message sent: ' + info.response);
             });
         });
-        // var mailOptions = {
-        //   to: participant.email,
-        //   subject: 'Invitation to challenge',
-        //   text: ` Hello,
-        //     You has been invited to do a challenge, Please click this below link to see the details
-        //      http://localhost:3000/challenges/${challenge.uuid}
-        //      `
-        //   };
-        // transporter.sendMail(mailOptions, function(error, info){
-        //     if(error){
-        //       return console.log(error);
-        //     }
-        //     console.log('Message sent: ' + info.response);
-        //   });
       });
     });
     res.redirect('/wait');
@@ -101,15 +87,29 @@ app.post('/checkers', (req, res) => {
     res.redirect('/');
   });
 });
+// 
+// app.get('/:uuid', (req, res) => {
+//   db.Challenge.findOne({
+//          where:{
+//             uuid: req.params.uuid
+//          }
+//       }).then((challenge) => {
+//         res.render('tasks/new', { challenge: challenge });
+//       });
+// });
+app.post('/tasks/new', (req, res) => {
+  db.Task.create({
+    name: req.body.task.name
+  }).then((task) => {
+    db.User.create({
+      password: req.body.participant.password
+  }  ).then((participant) => {
+      res.redirect('/challenges');
+    }).catch((error) => {
+      console.log(error);
+    });
 
-app.get('/:uuid', (req, res) => {
-  db.Challenge.findOne({
-         where:{
-            uuid: req.params.uuid
-         }
-      }).then((challenge) => {
-        res.render('tasks/new', { challenge: challenge });
-      });
+  });
 });
 
 db.sequelize.sync().then(() => {

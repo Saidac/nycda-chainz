@@ -17,11 +17,17 @@ module.exports = {
       pot: {
         type: Sequelize.INTEGER
       },
-      length: {
-        type: Sequelize.INTEGER
+      numberOfDays: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
-      WinnerId: {
-        type: Sequelize.INTEGER
+      WinnerId:{
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
+
       },
       createdAt: {
         allowNull: false,
