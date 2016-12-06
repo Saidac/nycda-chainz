@@ -6,7 +6,7 @@ const express = require('express'),
       displayRoutes = require('express-routemap'),
       pg = require('pg'),
       moment = require('moment'),
-      session = require('express-session');
+      session = require('express-session'),
       crypto = require('crypto'),
       base64url = require('base64url');
 
@@ -24,8 +24,6 @@ app.use(morgan('dev'));
 app.use(session({
   secret: 'keyboard cat'
 }));
-
-app.use(moment().format());
 
 app.use('/', authenticationRoute);
 
