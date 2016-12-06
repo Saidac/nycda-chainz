@@ -40,7 +40,7 @@ router.post('/users', (req, res) => {
   var user = req.body;
   db.User.create(user).then((user) => {
     req.session.user = user; // we are log the user in
-    res.redirect('/login');
+    res.redirect('/');
   }).catch(() => {
     res.redirect('/register');
   });
