@@ -19,13 +19,13 @@ module.exports = {
         allowNull: false,
         unique: true
       },
-  
+
       ChallengeId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'Challenges',
-          key: 'id'
-        }
+        // references: {
+        //   model: 'Challenges',
+        //   key: 'id'
+        // }
       },
       createdAt: {
         allowNull: false,

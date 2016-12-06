@@ -29,8 +29,12 @@ app.use('/', authenticationRoute);
 app.set('view engine', 'pug');
 
 app.get('/', (req, res) => {
-    res.render('users/new');
- });
+  if (req.session.user) {
+    return res.redirect('/challenges/new');
+  }
+
+  res.render('users/new');
+});
 
 app.get('/challenges', (req, res) => {
   db.Challenge.findAll().then((challenges) => {

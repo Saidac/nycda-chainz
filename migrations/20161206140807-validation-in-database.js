@@ -14,7 +14,7 @@ module.exports = {
       type: Sequelize.STRING,
       allowNull: false,
     });
-    queryInterface.changeColumn('Tasks', 'name', {
+    return queryInterface.changeColumn('Tasks', 'name', {
       type: Sequelize.STRING,
       allowNull: false
     });
