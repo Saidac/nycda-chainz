@@ -10,15 +10,10 @@ module.exports = {
       allowNull: false,
     });
 
-    queryInterface.changeColumn('Challenges', 'numberOfDays', {
+    return queryInterface.changeColumn('Challenges', 'numberOfDays', {
       type: Sequelize.STRING,
       allowNull: false,
     });
-    return queryInterface.changeColumn('Tasks', 'name', {
-      type: Sequelize.STRING,
-      allowNull: false
-    });
-
   },
 
   down: function (queryInterface, Sequelize) {
