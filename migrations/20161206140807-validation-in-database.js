@@ -3,8 +3,7 @@
 module.exports = {
   up: function (queryInterface, Sequelize) {
     queryInterface.changeColumn('Users', 'passwordDigest', {
-      type: Sequelize.STRING,
-      allowNull: false,
+      type: Sequelize.STRING
     });
     queryInterface.changeColumn('Users', 'email', {
       type: Sequelize.STRING,
