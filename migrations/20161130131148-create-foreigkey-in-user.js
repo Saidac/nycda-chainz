@@ -8,7 +8,7 @@ module.exports = {
         model: 'Users',
         key: 'id'
       }
-    })
+    });
 
     queryInterface.changeColumn('Checkers', 'TaskId', {
       type: Sequelize.INTEGER,
@@ -16,7 +16,7 @@ module.exports = {
         model: 'Tasks',
         key: 'id'
       }
-    })
+    });
 
     return queryInterface.changeColumn('Users', 'ChallengeId', {
       type: Sequelize.INTEGER,
@@ -24,7 +24,7 @@ module.exports = {
         model: 'Challenges',
         key: 'id'
       }
-    })
+    });
     // queryInterface.addColumn('Users','ChallengeId', Sequelize.INTEGER);
     /*
       Add altering commands here.

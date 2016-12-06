@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
-        this.hasMany(models.User);
+        this.belongsToMany(models.User, { through: 'Task' });
         this.hasMany(models.Task);
       }
     }

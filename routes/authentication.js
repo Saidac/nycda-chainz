@@ -4,12 +4,20 @@ var router = express.Router();
 var db = require('../models');
 
 router.get('/login', (req, res) => {
+  if (req.session.user) {
+    return res.redirect('/');
+  }
+
   res.render('users/login');
 });
 
 router.get('/register', (req, res) => {
-    res.render('users/new');
- });
+  if (req.session.user) {
+    return res.redirect('/');
+  }
+
+  res.render('users/new');
+});
 
 router.post('/login', (req, res) => {
    db.User.findOne({
