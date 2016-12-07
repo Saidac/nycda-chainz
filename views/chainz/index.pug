@@ -1,0 +1,33 @@
+extends ../application.pug
+block content
+  br
+  br
+  .container
+    .row
+      .col-xs-8.offset-xs-1
+        table
+          tr
+            td: h5 User
+            td(rowspan="2" class="checker"): h1 x
+            td(rowspan="2" class="checker"): h1 x
+            td(rowspan="2" class="checker"): h1 x
+            td(rowspan="2" id="today")
+              form(action="/checkers" id="checkerForm" method="POST" style=" display:inline!important;")
+                button(type='submit' class="ghost-btn")
+                  h1 x
+            td(rowspan="2" class="checker"): h1 x
+            td(rowspan="4"): h1 €80
+          tr
+            td: h6 task name
+          tr
+            td: h5 Participant
+            td(rowspan="2" class="checker"): h1 x
+            td(rowspan="2" class="checker"): h1 x
+            td(rowspan="2" class="checker"): h1 x
+            td(rowspan="2" id="today")
+              form(action="/checkers" id="checkerForm" method="POST" style=" display:inline!important;")
+                button(type='submit' class="ghost-btn")
+                  h1 x
+            td(rowspan="2" class="checker"): h1 x
+            tr
+              td: h6 task name

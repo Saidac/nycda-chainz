@@ -1,108 +1,36 @@
 $checker-width: 90px;
-$checker-height: 74.5px;
-$border-width: 15px;
+$checker-height: 82px;
 
-.checker-grid {
-  display: table;
-  width: $checker-width * 7;
+table {
+  border-collapse: collapse;
 }
 
-.chainz-layout {
-  display: table;
-  width: 100%;
-}
-
-.chainz-col {
-  display: table-cell;
-  width: $checker-width * 7;
-  text-align: center;
+td {
   vertical-align: middle;
-  margin: 0px;
-  padding-left: 0px;
-  border-width: 0px;
-  background-color: transparent;
+  text-align: center;
+  white-space: nowrap;
+  border: 2px solid black;
+  padding: 15px;
+  background-color: #fff;
 }
 
-.checker-row {
-  display: table-row;
-}
-
-.checker, .ghost-btn, .username {
+.checker {
   width: $checker-width;
-  height: $checker-height;
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
-  margin: 0px;
-  padding-left: 0px;
-  border-style: solid;
-  border-width: $border-width;
-  border-color: #fff;
   background-color: #ffff99;
 }
 
-.top {
-  border-bottom-width: $border-width / 2;
-}
-
-.bottom {
-  border-top-width: $border-width / 2;
-}
-
-.username, .pot {
-  width: $checker-width * 2;
-  border-width: 15px;
-  border-right-width: 0px;
-  padding-top: 10px;
-  border-color: #fff;
-  background-color: #fff;
-}
-
-.pot {
-  height: $checker-height * 2 + 1px;
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
-  // border-top-right-radius: 50%;
-  // border-bottom-right-radius: 50%;
-}
-
-.challenge-name {
-  height: 82px;
-  width: $checker-width * 9;
-  margin: 0px;
-  padding-top: 31px;
-  border-width: 0px;
-  background-color: #fff;
-  text-align: center;
-}
-
-h4 {
-  text-decoration: underline;
-}
-
-.truncate {
-  width: $checker-width * 2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-#checkerForm {
-  display: inline-block;
-}
-
-#today.checker {
+#today {
+  width: $checker-width;
   background-color: #ffcccc;
   color: #ffcccc;
 }
 
-#today.checker:hover {
+#today:hover {
   background-color: #ffcccc;
   color: #fff;
 }
 
-#today.checker:active {
+#today:active {
   background-color: #ccff99;
   color: #000;
 }
@@ -115,4 +43,11 @@ h4 {
 
 .ghost-btn:focus {
   outline:0px;
+}
+
+#checkerForm {
+  display: inline-block;
+  margin: 0px;
+  padding: 0px;
+  border-width: 0px;
 }

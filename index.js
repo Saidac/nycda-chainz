@@ -37,8 +37,8 @@ app.get('/', (req, res) => {
   res.render('users/new');
 });
 
-app.get('/index', (req, res) => {
-   res.render('index');
+app.get('/chainz', (req, res) => {
+   res.render('chainz/index');
 });
 
 app.get('/challenges', (req, res) => {
