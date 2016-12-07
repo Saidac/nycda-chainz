@@ -53,53 +53,186 @@ app.get('/challenges/new', (req, res) => {
 app.get('/wait', (req, res) => {
   res.render('challenges/wait');
 });
+//
 
-app.post('/challenges', (req, res) => {
-  var challengeParams = {
-    name: req.body.challenge.name,
-    numberOfDays: req.body.challenge.numberOfDays,
-    uuid: base64url(crypto.randomBytes(48))
-  };
+// app.post('/challenges', (req, res) => {
+//   console.log("challenges route triggerd");
+//   var challengeParams = {
+//     name: req.body.challenge.name,
+//     numberOfDays: req.body.challenge.numberOfDays,
+//     uuid: base64url(crypto.randomBytes(48))
+//   };
+//
+//   db.Challenge.create(challengeParams).then((challenge) => {
+//    // we should wrap all these in a transaction:
+//    db.Task.create({
+//      name: req.body.task.name,
+//      UserId: req.session.user.id,
+//      ChallengeId:  challenge.id
+//    }).then((task) => {
+//      return db.User.create({
+//        email: req.body.participant.email
+//      });
+//    }).then((participant) => {
+//   console.log("email participant is");
+//   console.log(participant.email);
+//     return  db.Task.create({
+//        UserId: participant.id,
+//        ChallengeId: challenge.id
+//      });
+//    }).then((anotherTask) => {
+//      console.log("send email to participant");
+//      console.log("email participant is 222");
+//      console.log(participant.email);
+//      var mailOptions = {
+//        to: participant.email,
+//        subject: 'Invitation to challenge',
+//        text: ` Hello,
+//          You has been invited to do a challenge, Please click this below link to see the details
+//           http://localhost:3000/${challenge.uuid}`
+//      };
+//      console.log("send email to ffffffparticipant");
+//      transporter.sendMail(mailOptions, (error, info) => {
+//        if (error){
+//
+//          return console.log(error);
+//        }
+//
+//        console.log('Message sent: ' + info.response);
+//      });
+//    }).catch((error) => {
+//      console.log('error will be: ');
+//      console.log(error);
+//      // do something when any of the operations fail
+//    });
+//   });
+//    res.redirect('/wait');
+//   });
 
-  db.Challenge.create(challengeParams).then((challenge) => {
-    // we should wrap all these in a transaction:
-    db.Task.create({
-      name: req.body.task.name,
-      UserId: req.session.user.id,
-      ChallengeId:  challenge.id
-    }).then((task) => {
-      return db.User.create({
-        email: req.body.participant.email
+  app.post('/challenges', (req, res) => {
+    var challengeParams = {
+      name: req.body.challenge.name,
+      numberOfDays: req.body.challenge.numberOfDays,
+      uuid: base64url(crypto.randomBytes(48))
+    };
+
+    db.Challenge.create(challengeParams).then((challenge) => {
+     // we should wrap all these in a transaction:
+     db.Task.create({
+       name: req.body.task.name,
+       UserId: req.session.user.id,
+       ChallengeId:  challenge.id
+     }).then((task) => {
+        db.User.create({
+         email: req.body.participant.email
+     }).then((participant) => {
+    console.log("email participant is");
+    console.log(participant.email);
+       db.Task.create({
+         UserId: participant.id,
+         ChallengeId: challenge.id
+
+     }).then((anotherTask) => {
+       console.log("send email to participant");
+       console.log("email participant is 222");
+       console.log(participant.email);
+       var mailOptions = {
+         to: participant.email,
+         subject: 'Invitation to challenge',
+         text: ` Hello,
+           You has been invited to do a challenge, Please click this below link to see the details
+            http://localhost:3000/${challenge.uuid}`
+       };
+       console.log("send email to ffffffparticipant");
+       transporter.sendMail(mailOptions, (error, info) => {
+         if (error){
+
+           return console.log(error);
+         }
+
+         console.log('Message sent: ' + info.response);
+       });
+     }).catch((error) => {
+       console.log('error will be: ');
+       console.log(error);
+       // do something when any of the operations fail
       });
-    }).then((participant) => {
-      return db.Task.create({
-        UserId: participant.id,
-        ChallengeId:  challenge.id
-      });
-    }).then((anotherTask) => {
-      var mailOptions = {
-        to: participant.email,
-        subject: 'Invitation to challenge',
-        text: ` Hello,
-          You has been invited to do a challenge, Please click this below link to see the details
-           http://localhost:3000/${challenge.uuid}`
-      };
-
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error){
-          return console.log(error);
-        }
-
-        console.log('Message sent: ' + info.response);
-      });
-    }).catch((error) => {
-      // do something when any of the operations fail
     });
-
-    res.redirect('/wait');
+  });
+     res.redirect('/wait');
+    });
   });
 
-});
+
+
+//  sequelize.transaction(function (t) {
+//       return db.Challenge.create(challengeParams).then((challenge) => {
+//     // we should wrap all these in a transaction:
+//
+//       return db.Task.create({
+//         name: req.body.task.name,
+//         UserId: req.session.user.id,
+//         ChallengeId:  challenge.id
+//
+//       },{transaction: t}).then(function (task) {
+//
+//           return db.User.create({
+//             email: req.body.participant.email
+//           }, {transaction: t}).then((participant) => {
+//           return db.Task.create({
+//             UserId: participant.id,
+//             ChallengeId:  challenge.id
+//           },{transaction: t});
+//         });
+//       }).then((anotherTask) => {
+//           var mailOptions = {
+//             to: participant.email,
+//             subject: 'Invitation to challenge',
+//             text: ` Hello,
+//               You has been invited to do a challenge, Please click this below link to see the details
+//                http://localhost:3000/${challenge.uuid}`
+//           };
+//
+//           transporter.sendMail(mailOptions, (error, info) => {
+//             if (error){
+//               return console.log(error);
+//             }
+//
+//             console.log('Message sent: ' + info.response);
+//           });
+//       }).catch((error) => {
+//             console.log("error will be");
+//             console.log(error);
+//         // do something when any of the operations fail
+//         });
+//
+//           // res.redirect('/wait');
+//     });
+//
+// });
+
+
+// return sequelize.transaction(function (t) {
+//
+//   // chain all your queries here. make sure you return them.
+//   return User.create({
+//     firstName: 'Abraham',
+//     lastName: 'Lincoln'
+//   }, {transaction: t}).then(function (user) {
+//     return user.setShooter({
+//       firstName: 'John',
+//       lastName: 'Boothe'
+//     }, {transaction: t});
+//   });
+//
+// }).then(function (result) {
+//   // Transaction has been committed
+//   // result is whatever the result of the promise chain returned to the transaction callback
+// }).catch(function (err) {
+//   // Transaction has been rolled back
+//   // err is whatever rejected the promise chain returned to the transaction callback
+// });
+
 
 app.post('/checkers', (req, res) => {
   console.log('posting checker');

@@ -27,7 +27,6 @@ module.exports = {
           model: 'Users',
           key: 'id'
         }
-
       },
       createdAt: {
         allowNull: false,

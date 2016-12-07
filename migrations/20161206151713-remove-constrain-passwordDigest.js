@@ -2,6 +2,12 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
+
+    queryInterface.changeColumn('Tasks', 'name', {
+      type: Sequelize.STRING,
+      allowNull: true,
+    });
+
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
@@ -12,6 +18,11 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
+
+        queryInterface.changeColumn('Tasks', 'name', {
+          type: Sequelize.STRING,
+          allowNull: false,
+        });
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.
