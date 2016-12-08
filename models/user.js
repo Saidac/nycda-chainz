@@ -28,6 +28,7 @@ module.exports = function(sequelize, DataTypes) {
         // associations can be defined here
          this.belongsTo(models.Challenge);
          this.hasMany(models.Task);
+         this.hasMany(models.Checker);
 
       }
     }

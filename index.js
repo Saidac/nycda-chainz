@@ -3,6 +3,7 @@ const express = require('express'),
       morgan = require('morgan'),
       nodemailer = require('nodemailer'),
       bodyParser = require('body-parser'),
+      methodOverride = require('method-override'),
       displayRoutes = require('express-routemap'),
       pg = require('pg'),
       moment = require('moment'),
@@ -18,12 +19,24 @@ var app = express(),
      authenticationRoute = require('./routes/authentication');
 
 app.use(morgan('dev'));
+
 app.use(express.static('public'));
+
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan('dev'));
+
+app.use(methodOverride(function (request, response) {
+  if (request.body && typeof request.body === 'object' && '_method' in request.body) {
+    // look in urlencoded POST bodies and delete it
+    var method = request.body._method;
+    delete request.body._method;
+    return method;
+  }
+}));
+
 app.use(session({
   secret: 'keyboard cat'
 }));
+
 
 app.use('/', authenticationRoute);
 
