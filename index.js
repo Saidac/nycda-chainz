@@ -115,7 +115,6 @@ app.get('/wait', (req, res) => {
       numberOfDays: req.body.challenge.numberOfDays,
       uuid: base64url(crypto.randomBytes(48))
     };
-
     db.Challenge.create(challengeParams).then((challenge) => {
      // we should wrap all these in a transaction:
      db.Task.create({
@@ -263,6 +262,33 @@ app.post('/tasks/new', (req, res) => {
     console.log(error);
   });
 });
+
+// app.get('/:uuid', (req, res) => {
+//   db.Challenge.findOne({
+//      where:{
+//       uuid: req.params.uuid
+//      }
+//   }).then((challenge) => {
+//     challenge.getUsers().then((users) => {
+//       var participant = users.filter((user) => {
+//         return !user.passwordDigest;
+//       })[0];
+//
+//       // most complicated part of the app:
+//       if (!challenge.active) {
+//         res.render('tasks/new', { challenge: challenge, participant: participant });
+//       } else {
+//         challenge.getTasks().then((tasks) => {
+//           res.render('challenges/show', {
+//             challenge: challenge,
+//             users: users,
+//             tasks: tasks
+//           });
+//         });
+//       }
+//     });
+//   });
+// });
 
 app.get('/:uuid', (req, res) => {
   db.Challenge.findOne({
