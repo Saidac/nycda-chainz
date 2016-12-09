@@ -7,6 +7,8 @@ block content
       .col-xs-8.offset-xs-1
         table
           tr
+            td(colspan="7"): h1 Challenge name
+          tr
             td: h5 User
             td(rowspan="2" class="checker"): h1 x
             td(rowspan="2" class="checker"): h1 x
@@ -14,7 +16,7 @@ block content
             td(rowspan="2" id="today")
 
               form(action="/checkers" id="checkerForm" method="POST" style="display:inline!important;")
-                input(type="hidden" name="_method" value="PUT")
+                //- input(type="hidden" name="_method" value="PUT")
                 button(type='submit' class="ghost-btn")
                   h1 x
 
@@ -29,7 +31,7 @@ block content
             td(rowspan="2" class="checker"): h1 x
             td(rowspan="2" id="today")
               form(action="/checkers" id="checkerForm" method="POST" style="display:inline!important;")
-                input(type="hidden" name="TaskId" id="TaskId" value= checker.TaskId)
+                //- input(type="hidden" name="TaskId" id="TaskId" value= checker.TaskId)
                 button(type='submit' class="ghost-btn")
                   h1 x
             td(rowspan="2" class="checker"): h1 x

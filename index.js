@@ -53,6 +53,10 @@ app.get('/challenges/new', (req, res) => {
 app.get('/wait', (req, res) => {
   res.render('challenges/wait');
 });
+
+app.get('/chainz', (req, res) => {
+  res.render('chainz/index');
+});
 //
 
 // app.post('/challenges', (req, res) => {
