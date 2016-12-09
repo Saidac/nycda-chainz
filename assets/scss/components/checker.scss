@@ -19,30 +19,33 @@ td {
   background-color: #ffff99;
 }
 
-#today {
-  width: $checker-width;
+.today {
+  background-color: #ffcccc;
+}
+
+// .today:active {
+//   background-color: #ccff99;
+//   color: #000;
+// }
+
+.ghost-btn {
+  height: $checker-height;
+  width: $checker-width - 32px;
+  margin: 0px;
+  padding: 0px;
+  border-width: 0px;
   background-color: #ffcccc;
   color: #ffcccc;
 }
 
-#today:hover {
+.ghost-btn:hover {
   background-color: #ffcccc;
   color: #fff;
 }
 
-#today:active {
-  background-color: #ccff99;
-  color: #000;
-}
-
-.ghost-btn {
-  margin: 0px;
-  padding: 0px;
-  border-width: 0px;
-}
-
 .ghost-btn:focus {
   outline:0px;
+  color: #fff;
 }
 
 #checkerForm {
