@@ -3,7 +3,7 @@
 module.exports = {
   up: function (queryInterface, Sequelize) {
 
-    queryInterface.changeColumn('Tasks', 'name', {
+     return queryInterface.changeColumn('Tasks', 'name', {
       type: Sequelize.STRING,
       allowNull: true,
     });
@@ -19,7 +19,7 @@ module.exports = {
 
   down: function (queryInterface, Sequelize) {
 
-        queryInterface.changeColumn('Tasks', 'name', {
+      return  queryInterface.changeColumn('Tasks', 'name', {
           type: Sequelize.STRING,
           allowNull: false,
         });
