@@ -1,0 +1,40 @@
+extends ../application.pug
+block content
+  br
+  br
+  .container
+    .row
+      .col-xs-8.offset-xs-1
+        table.cz-challenge-table
+          thead
+            tr
+              td(colspan="7"): h5 Challenge name
+          tbody
+            tr
+              td: h5 User
+              td(rowspan="2" class="cz-challenge-table-checked"): h1 x
+              td(rowspan="2" class="cz-challenge-table-checked"): h1 x
+              td(rowspan="2" class="cz-challenge-table-checked"): h1 x
+              td(rowspan="2" class="cz-challenge-table-today")
+                form(action="/checkers" id="checkerForm" method="POST")
+                  //- input(type="hidden" name="_method" value="PUT")
+                  button(type='submit' class="ghost-btn")
+                    h1 x
+
+              td(rowspan="2" class="cz-challenge-table-unchecked"): h1 x
+              td(rowspan="4"): h1 €80
+            tr
+              td: h6 task name
+            tr
+              td: h5 Participant
+              td(rowspan="2" class="cz-challenge-table-checked"): h1 x
+              td(rowspan="2" class="cz-challenge-table-checked"): h1 x
+              td(rowspan="2" class="cz-challenge-table-checked"): h1 x
+              td(rowspan="2" class="cz-challenge-table-today")
+                form(action="/checkers" id="checkerForm" method="POST")
+                //- input(type="hidden" name="TaskId" id="TaskId" value= checker.TaskId)
+                button(type='submit' class="cz-checker-table-today")
+                  h1 x
+              td(rowspan="2" class="cz-challenge-table-unchecked"): h1 x
+              tr
+                td: h6 task name

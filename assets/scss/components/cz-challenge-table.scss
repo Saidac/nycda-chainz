@@ -1,0 +1,52 @@
+.cz-challenge-table {
+  $checker-width: 90px;
+  $checker-height: 82px;
+
+  border-collapse: collapse;
+
+  td {
+    vertical-align: middle;
+    text-align: center;
+    white-space: nowrap;
+    border: 2px solid black;
+    padding: 15px;
+    background: white;
+    width: $checker-width;
+  }
+
+  tbody td:first-of-type {
+    width: initial;
+  }
+
+  td.cz-challenge-table-checked {
+    background-color: #ffff99;
+  }
+
+  td.cz-challenge-table-unchecked {
+    background-color: #ffff99;
+    color: #ffff99;
+    cursor: default;
+  }
+
+  td.cz-challenge-table-today {
+    background-color: #ffcccc;
+  }
+
+  button {
+    height: $checker-height;
+    width: $checker-width - 32px;
+    margin: 0px;
+    padding: 0px;
+    border-width: 0px;
+    background-color: #ffcccc;
+    color: #ffcccc;
+  }
+
+  button:hover {
+    color: #fff;
+  }
+
+  #checkerForm {
+    display: inline !important;
+  }
+}
