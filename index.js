@@ -149,6 +149,7 @@ app.get('/:uuid', (req, res) => {
         // marshall/design your object here
         var dataStructure = {
           name: challenge.name,
+          pot: challenge.pot,
           tasks: tasks.map((task) => {
             var owner = users.filter((user) => {
               return user.id === task.UserId;
