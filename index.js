@@ -69,11 +69,6 @@ app.get('/challenges', (req, res) => {
 
 
 
-
-
-
-
-
 app.get('/challenges/new', (req, res) => {
   if (req.session.user) {
     res.render('challenges/new');
@@ -170,8 +165,6 @@ app.get('/:uuid', (req, res) => {
       uuid: req.params.uuid
      }
   }).then((challenge) => {
-    console.log('challenge is :');
-    console.log(challenge);
     challenge.getUsers().then((users) => {
       var participant = users.filter((user) => {
         return !user.passwordDigest;

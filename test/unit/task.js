@@ -18,9 +18,20 @@ describe('Task Model', () => {
   it('can update a task', (done) => {
 
   });
-  it('ChallengeId refers to id of challenge', (done) => {
+  
+  it('can not create a task with a wrong  ChallengeId or without a ChallengeId ', (done) => {
+    db.Task.create({
+      name: 'a new one',
+      ChallengeId: '4'
 
+    }).then((task) => {
+      task.getChallenge().then((challenge) => {
+        assert.equal(task.ChallengeId, '4');
+        done();
+      });
+    });
   });
+
   it('UserId refers to id of user', (done) => {
 
   });

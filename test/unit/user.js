@@ -32,13 +32,21 @@ describe('User Model', () => {
       assert.equal(error.errors.length, 1);
       done();
     });
-    });
 
   });
   it('can not create a user with the existing email', (done) => {
-
+    db.User.create({
+      name: 'ziba',
+      surname: 'zibai',
+      email: 'fam@gmail.com'
+    }).catch((error) => {
+      assert.equal(error.errors[0].message, 'email cannot be null');
+      assert.equal(error.errors.length, 1);
+      done();
+    });
   });
-  it('ChallengeId refers to id of challenge', (done) => {
+
+  it('verfying the challengeId as a foreign key ', (done) => {
 
   });
 
