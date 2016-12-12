@@ -82,8 +82,6 @@ app.post('/challenges', (req, res) => {
       });
     });
   }).then((participantTask) => {
-    console.log('RESULT IS:');
-    console.log(participantTask);
     var mailOptions = {
       to: req.body.participant.email,
       subject: 'Invitation to challenge',
@@ -96,7 +94,6 @@ app.post('/challenges', (req, res) => {
       if (error) {
         return console.log(error);
       }
-
       console.log('Message sent: ' + info.response);
     });
     res.redirect('/wait');
@@ -109,7 +106,6 @@ app.post('/challenges', (req, res) => {
 });
 
 app.post('/checkers', (req, res) => {
-  console.log('posting checker');
   db.Checker.create(req.body).then((checker) => {
     res.redirect('/');
   });
@@ -139,8 +135,6 @@ app.get('/:uuid', (req, res) => {
       uuid: req.params.uuid
      }
   }).then((challenge) => {
-    console.log('challenge is :');
-    console.log(challenge);
     challenge.getUsers().then((users) => {
       // most complicated part of the app:
       if (!challenge.active) {
@@ -153,8 +147,6 @@ app.get('/:uuid', (req, res) => {
 
       challenge.getTasks().then((tasks) => {
         // marshall/design your object here
-        console.log(challenge);
-
         var dataStructure = {
           name: challenge.name,
           tasks: tasks.map((task) => {
@@ -165,7 +157,6 @@ app.get('/:uuid', (req, res) => {
             return Object.assign({}, task.dataValues, { owner: owner.dataValues });
           })
         };
-        console.log(dataStructure.tasks[1]);
         res.render('challenges/show', { dataStructure: dataStructure });
       });
     });
@@ -200,8 +191,6 @@ app.post('/challenges/:id', (req, res) => {
     });
   }).then((updateMetaData) => {
     var challenge = updateMetaData[1][0];
-    console.log('challenge for post: ');
-    console.log(challenge);
     res.redirect(`/${challenge.uuid}`);
   }).catch((error) => {
     console.log("the error is ");
