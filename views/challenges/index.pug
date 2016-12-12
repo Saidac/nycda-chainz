@@ -6,7 +6,8 @@ block content
 				if challenges
 					h2 Chainz
 					each challenge in challenges
-						h5= challenge.name
+						a(href="/" + challenge.uuid)
+							h5= challenge.name
 				else
 					h3 ...Oh la La!
 					h5 Looks like you have no
