@@ -37,10 +37,42 @@ app.get('/', (req, res) => {
 });
 
 app.get('/challenges', (req, res) => {
-  db.Challenge.findAll().then((challenges) => {
-      res.render('challenges/index', { challenges: challenges });
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
+
+  db.Task.findAll({
+      where:{
+        UserId : req.session.user.id
+      }
+    }).then((tasks) => {
+      var dataStructure = [];
+
+      tasks.forEach((task, index) => {
+        task.getChallenge().then((challenge) => {
+          dataStructure.push(Object.assign({}, challenge.dataValues, {
+            task: task.dataValues,
+            user: req.session.user
+          }));
+
+          if (index === tasks.length - 1) {
+            console.log(dataStructure);
+            res.render('challenges/index', { challenges: dataStructure });
+          }
+        });
+      });
+    });
   });
-});
+  // }).catch((error) => {
+  //   res.status(404).end();
+  // });
+
+
+
+
+
+
+
 
 app.get('/challenges/new', (req, res) => {
   if (req.session.user) {
@@ -53,137 +85,59 @@ app.get('/challenges/new', (req, res) => {
 app.get('/wait', (req, res) => {
   res.render('challenges/wait');
 });
-//
 
-// app.post('/challenges', (req, res) => {
-//   console.log("challenges route triggerd");
-//   var challengeParams = {
-//     name: req.body.challenge.name,
-//     numberOfDays: req.body.challenge.numberOfDays,
-//     uuid: base64url(crypto.randomBytes(48))
-//   };
-//
-//   db.Challenge.create(challengeParams).then((challenge) => {
-//    // we should wrap all these in a transaction:
-//    db.Task.create({
-//      name: req.body.task.name,
-//      UserId: req.session.user.id,
-//      ChallengeId:  challenge.id
-//    }).then((task) => {
-//      return db.User.create({
-//        email: req.body.participant.email
-//      });
-//    }).then((participant) => {
-//   console.log("email participant is");
-//   console.log(participant.email);
-//     return  db.Task.create({
-//        UserId: participant.id,
-//        ChallengeId: challenge.id
-//      });
-//    }).then((anotherTask) => {
-//      console.log("send email to participant");
-//      console.log("email participant is 222");
-//      console.log(participant.email);
-//      var mailOptions = {
-//        to: participant.email,
-//        subject: 'Invitation to challenge',
-//        text: ` Hello,
-//          You has been invited to do a challenge, Please click this below link to see the details
-//           http://localhost:3000/${challenge.uuid}`
-//      };
-//      console.log("send email to ffffffparticipant");
-//      transporter.sendMail(mailOptions, (error, info) => {
-//        if (error){
-//
-//          return console.log(error);
-//        }
-//
-//        console.log('Message sent: ' + info.response);
-//      });
-//    }).catch((error) => {
-//      console.log('error will be: ');
-//      console.log(error);
-//      // do something when any of the operations fail
-//    });
-//   });
-//    res.redirect('/wait');
-//   });
+app.post('/challenges', (req, res) => {
+  var savedChallenge;
+  var challengeParams = {
+    name: req.body.challenge.name,
+    numberOfDays: req.body.challenge.numberOfDays,
+    uuid: base64url(crypto.randomBytes(48))
+  };
 
-  app.post('/challenges', (req, res) => {
-    var savedChallenge;
-    var challengeParams = {
-      name: req.body.challenge.name,
-      numberOfDays: req.body.challenge.numberOfDays,
-      uuid: base64url(crypto.randomBytes(48))
-    };
+  db.sequelize.transaction(function(t) {
+    return db.Challenge.create(challengeParams, { transaction: t }).then((challenge) => {
+      savedChallenge = challenge;
 
-    db.sequelize.transaction(function(t) {
-      return db.Challenge.create(challengeParams, { transaction: t }).then((challenge) => {
-        savedChallenge = challenge;
-
-        return db.Task.create({
-          name: req.body.task.name,
-          UserId: req.session.user.id,
-          ChallengeId:  challenge.id
-        }, { transaction: t }).then(function(task) {
-          return db.User.create({
-            email: req.body.participant.email
-          }, { transaction: t }).then((participant) => {
-            return db.Task.create({
-              UserId: participant.id,
-              ChallengeId:  challenge.id
-            },{ transaction: t });
-          });
+      return db.Task.create({
+        name: req.body.task.name,
+        UserId: req.session.user.id,
+        ChallengeId:  challenge.id
+      }, { transaction: t }).then(function(task) {
+        return db.User.create({
+          email: req.body.participant.email
+        }, { transaction: t }).then((participant) => {
+          return db.Task.create({
+            UserId: participant.id,
+            ChallengeId:  challenge.id
+          },{ transaction: t });
         });
       });
-    }).then((participantTask) => {
-      console.log('RESULT IS:');
-      console.log(participantTask);
-      var mailOptions = {
-        to: req.body.participant.email,
-        subject: 'Invitation to challenge',
-        text: ` Hello,
-          You has been invited to do a challenge, Please click this below link to see the details
-          http://localhost:3000/${savedChallenge.uuid}`
-      };
-
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          return console.log(error);
-        }
-
-        console.log('Message sent: ' + info.response);
-      });
-      res.redirect('/wait');
-    }).catch((error) => {
-      console.log("error will be");
-      console.log(error);
-      res.redirect('/challenges/new');
-      // do something when any of the operations fail
     });
+  }).then((participantTask) => {
+    console.log('RESULT IS:');
+    console.log(participantTask);
+    var mailOptions = {
+      to: req.body.participant.email,
+      subject: 'Invitation to challenge',
+      text: ` Hello,
+        You has been invited to do a challenge, Please click this below link to see the details
+        http://localhost:3000/${savedChallenge.uuid}`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return console.log(error);
+      }
+
+      console.log('Message sent: ' + info.response);
+    });
+    res.redirect('/wait');
+  }).catch((error) => {
+    console.log("error will be");
+    console.log(error);
+    res.redirect('/challenges/new');
   });
-
-
-// return sequelize.transaction(function (t) {
-//
-//   // chain all your queries here. make sure you return them.
-//   return User.create({
-//     firstName: 'Abraham',
-//     lastName: 'Lincoln'
-//   }, {transaction: t}).then(function (user) {
-//     return user.setShooter({
-//       firstName: 'John',
-//       lastName: 'Boothe'
-//     }, {transaction: t});
-//   });
-//
-// }).then(function (result) {
-//   // Transaction has been committed
-//   // result is whatever the result of the promise chain returned to the transaction callback
-// }).catch(function (err) {
-//   // Transaction has been rolled back
-//   // err is whatever rejected the promise chain returned to the transaction callback
-// });
+});
 
 
 app.post('/checkers', (req, res) => {
@@ -213,8 +167,6 @@ app.get('/:uuid', (req, res) => {
       uuid: req.params.uuid
      }
   }).then((challenge) => {
-    console.log('challenge is :');
-    console.log(challenge);
     challenge.getUsers().then((users) => {
       var participant = users.filter((user) => {
         return !user.passwordDigest;
@@ -264,13 +216,9 @@ app.post('/challenges/:id', (req, res) => {
     });
   }).then((updateMetaData) => {
     var challenge = updateMetaData[1][0];
-    console.log('challenge for post: ');
-    console.log(challenge);
     res.redirect(`/${challenge.uuid}`);
   }).catch((error) => {
-    console.log("the error is ");
     console.log(error);
-    // one of the operations failed handle the problem here;
   });
 });
 

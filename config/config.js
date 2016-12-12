@@ -9,7 +9,7 @@ module.exports = {
   "test": {
     "username": process.env.DB_USERNAME,
     "password": null,
-    "database": "chainz",
+    "database": "chainz-test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
