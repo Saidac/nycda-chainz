@@ -139,6 +139,9 @@ app.post('/challenges', (req, res) => {
   });
 });
 
+app.get('/chainz', (req, res) => {
+  res.render('chainz/index');
+});
 
 app.post('/checkers', (req, res) => {
   console.log('posting checker');
@@ -167,6 +170,8 @@ app.get('/:uuid', (req, res) => {
       uuid: req.params.uuid
      }
   }).then((challenge) => {
+    console.log('challenge is :');
+    console.log(challenge);
     challenge.getUsers().then((users) => {
       var participant = users.filter((user) => {
         return !user.passwordDigest;
@@ -216,6 +221,7 @@ app.post('/challenges/:id', (req, res) => {
     });
   }).then((updateMetaData) => {
     var challenge = updateMetaData[1][0];
+
     res.redirect(`/${challenge.uuid}`);
   }).catch((error) => {
     console.log(error);
