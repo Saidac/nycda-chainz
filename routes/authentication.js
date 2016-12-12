@@ -28,6 +28,7 @@ router.post('/login', (req, res) => {
       bcrypt.compare(req.body.password, userInDb.passwordDigest, (error, result) => {
           if(result){
             req.session.user = userInDb;
+            req.app.locals.user = userInDb;
             res.redirect('/challenges');
          } else {
             res.redirect('/login');
@@ -41,6 +42,7 @@ router.post('/login', (req, res) => {
 
 router.get('/logout', (req, res) => {
   req.session.user = undefined;
+  req.app.locals.user = undefined;
   res.redirect('/');
 });
 

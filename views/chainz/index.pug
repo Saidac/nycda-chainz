@@ -8,10 +8,10 @@ block content
         table.cz-challenge-table
           thead
             tr
-              td(colspan="7"): h5 Challenge name
+              td(colspan="7"): h5=challenge.name
           tbody
             tr
-              td: h5 User
+              td: h5=user.user
               td(rowspan="2" class="cz-challenge-table-checked"): h1 x
               td(rowspan="2" class="cz-challenge-table-checked"): h1 x
               td(rowspan="2" class="cz-challenge-table-checked"): h1 x
@@ -22,11 +22,11 @@ block content
                     h1 x
 
               td(rowspan="2" class="cz-challenge-table-unchecked"): h1 x
-              td(rowspan="4"): h1 €80
+              td(rowspan="4"): h1=challenge.pot
             tr
-              td: h6 task name
+              td: h6=task.name
             tr
-              td: h5 Participant
+              td: h5=user.participant
               td(rowspan="2" class="cz-challenge-table-checked"): h1 x
               td(rowspan="2" class="cz-challenge-table-checked"): h1 x
               td(rowspan="2" class="cz-challenge-table-checked"): h1 x
@@ -37,4 +37,4 @@ block content
                   h1 x
               td(rowspan="2" class="cz-challenge-table-unchecked"): h1 x
               tr
-                td: h6 task name
+                td: h6=task.name
