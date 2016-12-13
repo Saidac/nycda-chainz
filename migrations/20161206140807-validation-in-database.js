@@ -5,11 +5,7 @@ module.exports = {
     queryInterface.changeColumn('Users', 'passwordDigest', {
       type: Sequelize.STRING
     });
-    queryInterface.changeColumn('Users', 'email', {
-      type: Sequelize.STRING,
-      allowNull: false,
-    });
-
+    
     return queryInterface.changeColumn('Challenges', 'numberOfDays', {
       type: Sequelize.STRING,
       allowNull: false,

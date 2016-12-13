@@ -1,6 +1,7 @@
 const gulp = require('gulp'),
       sass = require('gulp-sass'),
-      concat = require('gulp-concat');
+      concat = require('gulp-concat'),
+      mocha = require('gulp-mocha');
 
 gulp.task('default', () => {
   console.log('default task runs');
@@ -22,4 +23,13 @@ gulp.task('js', () => {
 
 gulp.task('watch', ['scss'], () => {
   gulp.watch('assets/scss/**/*.scss', ['scss']);
+});
+gulp.task('test:unit', () => {
+  gulp.src('tests/unit/**/*.js')
+    .pipe(mocha());
+});
+
+gulp.task('test', ['test:unit'], () => {
+  gulp.watch('tests/unit/**/*.js', ['test:unit']);
+
 });

@@ -10,7 +10,8 @@ module.exports = function(sequelize, DataTypes) {
         notEmpty: {
           msg: 'Email cannot be empty'
         }
-      }
+      },
+      allowNull:false
     } ,
     password:{
       type: DataTypes.VIRTUAL,

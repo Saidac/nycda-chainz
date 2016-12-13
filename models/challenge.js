@@ -6,9 +6,9 @@ module.exports = function(sequelize, DataTypes) {
     pot: DataTypes.INTEGER,
     numberOfDays: {
       type: DataTypes.INTEGER,
+      allowNull: false
     },
     uuid: DataTypes.STRING
-
   }, {
     classMethods: {
       associate: function(models) {

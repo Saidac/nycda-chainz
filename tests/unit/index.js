@@ -8,15 +8,15 @@
 
 
 var assert = require('assert');
-var db = require('../models');
+var db = require('../../models');
 
-describe('User Model', () => {
-  before((done) => {
-    db.sequelize.sync({ force: true }).then(() => {
-      done();
-    });
-  });
-  it();
-  it();
-  it();
-});
+// describe('User Model', () => {
+//   before((done) => {
+//     db.sequelize.sync({ force: true }).then(() => {
+//       done();
+//     });
+//   });
+//   it();
+//   it();
+//   it();
+// });
