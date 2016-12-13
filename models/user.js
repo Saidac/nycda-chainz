@@ -11,7 +11,8 @@ module.exports = function(sequelize, DataTypes) {
           msg: 'Email cannot be empty'
         }
       },
-      allowNull:false
+      allowNull:false,
+      unique: true
     } ,
     password:{
       type: DataTypes.VIRTUAL,

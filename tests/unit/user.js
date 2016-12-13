@@ -38,23 +38,18 @@ describe('User Model', () => {
   });
 
   it('can not create a user with the existing email', (done) => {
-    db.User.create({
-      name: 'ziba',
-      surname: 'zibai',
-      email: 'fam@gmail.com'
-    }).then((user)=> {
       db.User.create({
         name: 'ziddba',
         surname: 'zidddbai',
         email: 'fam@gmail.com'
     }).catch((error) => {
-      console.log('error for a user with existing email:');
+      console.log('error for a user with existing email iss:');
       console.log(error);
-      assert.equal(error.errors[0].message, 'email should be unique');
+      assert.equal(error.errors[0].message, 'email must be unique');
       assert.equal(error.errors.length, 1);
       done();
     });
-  });
+
 });
 
   // it('verfying the challengeId as a foreign key ', (done) => {
