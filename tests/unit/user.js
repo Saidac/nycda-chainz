@@ -15,10 +15,10 @@ describe('User Model', () => {
       email: 'fam@gmail.com'
 
     }).then((user) => {
-      assert.equal(user.name, 'Zahra');
-      assert.equal(user.surname, 'Fam');
-      assert.equal(user.email, 'fam@gmail.com');
-      done();
+        assert.equal(user.name, 'Zahra');
+        assert.equal(user.surname, 'Fam');
+        assert.equal(user.email, 'fam@gmail.com');
+        done();
     });
   });
 
@@ -29,11 +29,9 @@ describe('User Model', () => {
         name: 'Yalda',
         surname: 'Seri'
       }).catch((error) => {
-        console.log('error for a user without email:');
-        console.log(error);
-        assert.equal(error.errors[0].message, 'email cannot be null');
-        assert.equal(error.errors.length, 1);
-        done();
+          assert.equal(error.errors[0].message, 'email cannot be null');
+          assert.equal(error.errors.length, 1);
+          done();
       });
   });
 
@@ -43,19 +41,12 @@ describe('User Model', () => {
         surname: 'zidddbai',
         email: 'fam@gmail.com'
     }).catch((error) => {
-      console.log('error for a user with existing email iss:');
-      console.log(error);
-      assert.equal(error.errors[0].message, 'email must be unique');
-      assert.equal(error.errors.length, 1);
-      done();
+        assert.equal(error.errors[0].message, 'email must be unique');
+        assert.equal(error.errors.length, 1);
+        done();
     });
 
 });
-
-  // it('verfying the challengeId as a foreign key ', (done) => {
-  //
-  // });
-
 
 
 });

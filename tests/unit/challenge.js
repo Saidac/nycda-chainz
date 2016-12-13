@@ -15,10 +15,10 @@ describe('Challenge Model', () => {
       active: false
 
     }).then((challenge) => {
-      assert.equal(challenge.name, 'new year');
-      assert.equal(challenge.numberOfDays, 5);
-      assert.equal(challenge.active, false);
-       done();
+        assert.equal(challenge.name, 'new year');
+        assert.equal(challenge.numberOfDays, 5);
+        assert.equal(challenge.active, false);
+        done();
     });
   });
 
@@ -33,11 +33,11 @@ describe('Challenge Model', () => {
       },
       returning:true
     }).then((updateData) => {
-      var challenge = updateData[1][0];
-      assert.equal(challenge.name, 'new name');
-      assert.equal(challenge.numberOfDays, 6);
-      assert.equal(challenge.active, true);
-      done();
+        var challenge = updateData[1][0];
+        assert.equal(challenge.name, 'new name');
+        assert.equal(challenge.numberOfDays, 6);
+        assert.equal(challenge.active, true);
+        done();
     });
   });
 
@@ -48,11 +48,11 @@ describe('Challenge Model', () => {
       name: 'new year',
       active: false
     }).catch((error) => {
-      console.log("error for numberOfDays:");
-      console.log(error.errors[0].message);
-      assert.equal(error.errors[0].message, 'numberOfDays cannot be null');
-      assert.equal(error.errors.length, 1);
-      done();
+        console.log("error for numberOfDays:");
+        console.log(error.errors[0].message);
+        assert.equal(error.errors[0].message, 'numberOfDays cannot be null');
+        assert.equal(error.errors.length, 1);
+        done();
     });
   });
 
