@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     surname: DataTypes.STRING,
     email:{
-      type:DataTypes.STRING,
+      type: DataTypes.STRING,
       validate: {
         notEmpty: {
           msg: 'Email cannot be empty'
