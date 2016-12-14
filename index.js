@@ -168,6 +168,7 @@ app.get('/:uuid', (req, res) => {
 
 app.post('/challenges/:id', (req, res) => {
   db.User.update({
+    name: req.body.participant.name,
     password: req.body.participant.password
   }, {
     where: {
