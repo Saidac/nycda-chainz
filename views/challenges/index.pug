@@ -3,16 +3,7 @@ block content
 	.container
 		.row
 			.col-xs-8.offset-xs-4
-<<<<<<< HEAD
-				h2 Chainz
-				each challenge in challenges
 
-					h5= challenge.name
-
-				unless challenges
-					h3 ...Oh la La
-
-=======
 				if challenges
 					h2 Chainz
 					each challenge in challenges
@@ -20,7 +11,6 @@ block content
 							h5= challenge.name
 				else
 					h3 ...Oh la La!
->>>>>>> 34f2b23119a0fcab7923568631f3a18c7b132ec3
 					h5 Looks like you have no
 					h5 challenges, lets createTable
 					h5 a new one!
