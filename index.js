@@ -186,6 +186,7 @@ app.get('/:uuid', (req, res) => {
         // marshall/design your object here
         var dataStructure = {
           name: challenge.name,
+          pot: challenge.pot,
           tasks: tasks.map((task) => {
             var owner = users.filter((user) => {
               return user.id === task.UserId;
@@ -203,7 +204,8 @@ app.get('/:uuid', (req, res) => {
 
 app.post('/challenges/:id', (req, res) => {
   db.User.update({
-    password: req.body.participant.password
+    password: req.body.participant.password,
+    name: req.body.participant.name
   }, {
     where: {
       id: req.body.participant.id
