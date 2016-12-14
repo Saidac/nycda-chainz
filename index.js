@@ -124,8 +124,6 @@ app.post('/challenges', (req, res) => {
         return console.log(error);
       }
 
-
-
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         return console.log(error);
@@ -136,6 +134,7 @@ app.post('/challenges', (req, res) => {
   }).catch((error) => {
     res.redirect('/challenges/new');
   });
+});
 });
 
 app.get('/chainz', (req, res) => {
