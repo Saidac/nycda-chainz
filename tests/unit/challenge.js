@@ -48,8 +48,6 @@ describe('Challenge Model', () => {
       name: 'new year',
       active: false
     }).catch((error) => {
-        console.log("error for numberOfDays:");
-        console.log(error.errors[0].message);
         assert.equal(error.errors[0].message, 'numberOfDays cannot be null');
         assert.equal(error.errors.length, 1);
         done();
