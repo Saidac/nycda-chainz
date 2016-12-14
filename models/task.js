@@ -4,6 +4,7 @@ module.exports = function(sequelize, DataTypes) {
     name: {
       type: DataTypes.STRING
     },
+<<<<<<< HEAD
     ChallengeId: {
       type: DataTypes.INTEGER,
       references: {
@@ -17,6 +18,13 @@ module.exports = function(sequelize, DataTypes) {
         model: 'Users',
         key: 'id'
       }
+=======
+    UserId: {
+      type: DataTypes.INTEGER
+    },
+    ChallengeId: {
+      type: DataTypes.INTEGER
+>>>>>>> 34f2b23119a0fcab7923568631f3a18c7b132ec3
     }
   }, {
     classMethods: {

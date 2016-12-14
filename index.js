@@ -88,6 +88,7 @@ app.post('/challenges', (req, res) => {
     numberOfDays: req.body.challenge.numberOfDays,
     uuid: base64url(crypto.randomBytes(48)),
     pot: req.body.challenge.pot
+
   };
 
   db.sequelize.transaction(function(t) {
@@ -110,8 +111,6 @@ app.post('/challenges', (req, res) => {
       });
     });
   }).then((participantTask) => {
-    console.log('RESULT IS:');
-    console.log(participantTask);
     var mailOptions = {
       to: req.body.participant.email,
       subject: 'Invitation to challenge',
@@ -125,6 +124,12 @@ app.post('/challenges', (req, res) => {
         return console.log(error);
       }
 
+
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return console.log(error);
+      }
       console.log('Message sent: ' + info.response);
     });
     res.redirect('/wait');
@@ -137,8 +142,8 @@ app.get('/chainz', (req, res) => {
   res.render('chainz/index');
 });
 
+
 app.post('/checkers', (req, res) => {
-  console.log('posting checker');
   db.Checker.create(req.body).then((checker) => {
     res.redirect('/');
   });
@@ -159,28 +164,39 @@ app.post('/tasks/new', (req, res) => {
 });
 
 app.get('/:uuid', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/login');
+  }
+
   db.Challenge.findOne({
      where:{
       uuid: req.params.uuid
      }
   }).then((challenge) => {
     challenge.getUsers().then((users) => {
-      var participant = users.filter((user) => {
-        return !user.passwordDigest;
-      })[0];
-
       // most complicated part of the app:
       if (!challenge.active) {
-        res.render('tasks/new', { challenge: challenge, participant: participant });
-      } else {
-        challenge.getTasks().then((tasks) => {
-          res.render('challenges/show', {
-            challenge: challenge,
-            users: users,
-            tasks: tasks
-          });
-        });
+        var participant = users.filter((user) => {
+          return !user.passwordDigest;
+        })[0];
+
+       return res.render('tasks/new', { challenge: challenge, participant: participant });
       }
+
+      challenge.getTasks().then((tasks) => {
+        // marshall/design your object here
+        var dataStructure = {
+          name: challenge.name,
+          tasks: tasks.map((task) => {
+            var owner = users.filter((user) => {
+              return user.id === task.UserId;
+            })[0];
+
+            return Object.assign({}, task.dataValues, { owner: owner.dataValues });
+          })
+        };
+        res.render('challenges/show', { dataStructure: dataStructure });
+      });
     });
   });
 });
@@ -213,7 +229,6 @@ app.post('/challenges/:id', (req, res) => {
     });
   }).then((updateMetaData) => {
     var challenge = updateMetaData[1][0];
-
     res.redirect(`/${challenge.uuid}`);
   }).catch((error) => {
     console.log(error);

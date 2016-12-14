@@ -9,12 +9,15 @@ block content
 					input(type="hidden" name="participant[id]" value=participant.id)
 					input(type="hidden" name="challenge[id]" value=challenge.id)
 					.form-group
+						label(for="task") First name:
+						input(type="text" class="form-control"  id="name" name="participant[name]" required)
+					.form-group
 						label(for="task") What is your task?
 						input(type="text" class="form-control"  id="task" name="task[name]" required)
 					.form-group
 						label(for="email") Email:
 						p(class="form-control-static")= participant.email
 					.form-group
-						label(for="password") Password
+						label(for="password") Password:
 						input(type="password" class="form-control" id="password" name="participant[password]")
 					button(type="submit" class="btn btn-success") Create task
