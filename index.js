@@ -118,12 +118,6 @@ app.post('/challenges', (req, res) => {
         You has been invited to do a challenge, Please click this below link to see the details
         http://localhost:3000/${savedChallenge.uuid}`
     };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        return console.log(error);
-      }
-
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         return console.log(error);
