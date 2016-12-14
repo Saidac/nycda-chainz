@@ -59,7 +59,8 @@ app.post('/challenges', (req, res) => {
   var challengeParams = {
     name: req.body.challenge.name,
     numberOfDays: req.body.challenge.numberOfDays,
-    uuid: base64url(crypto.randomBytes(48))
+    uuid: base64url(crypto.randomBytes(48)),
+    pot: req.body.challenge.pot
   };
 
   db.sequelize.transaction(function(t) {
@@ -149,6 +150,7 @@ app.get('/:uuid', (req, res) => {
         // marshall/design your object here
         var dataStructure = {
           name: challenge.name,
+          pot: challenge.pot,
           tasks: tasks.map((task) => {
             var owner = users.filter((user) => {
               return user.id === task.UserId;
@@ -166,6 +168,7 @@ app.get('/:uuid', (req, res) => {
 
 app.post('/challenges/:id', (req, res) => {
   db.User.update({
+    name: req.body.participant.name,
     password: req.body.participant.password
   }, {
     where: {
