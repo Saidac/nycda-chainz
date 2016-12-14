@@ -59,7 +59,8 @@ app.post('/challenges', (req, res) => {
   var challengeParams = {
     name: req.body.challenge.name,
     numberOfDays: req.body.challenge.numberOfDays,
-    uuid: base64url(crypto.randomBytes(48))
+    uuid: base64url(crypto.randomBytes(48)),
+    pot: req.body.challenge.pot
   };
 
   db.sequelize.transaction(function(t) {
