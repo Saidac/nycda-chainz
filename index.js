@@ -129,7 +129,7 @@ app.post('/challenges', (req, res) => {
     res.redirect('/challenges/new');
   });
 });
-});
+
 
 app.get('/chainz', (req, res) => {
   res.render('chainz/index');
