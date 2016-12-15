@@ -165,7 +165,7 @@ app.post('/tasks/new', (req, res) => {
 });
 
 app.get('/:uuid', (req, res) => {
-  var startOfTheChallenge, foundChallenge, foundTasks, participant,
+  var startOfTheChallenge, foundChallenge, foundTasks, foundParticipant,
       userTask, participantTask,
       participantCheckers = [],
       userCheckers = [];
@@ -180,20 +180,22 @@ app.get('/:uuid', (req, res) => {
      }
   }).then((challenge) => {
     foundChallenge = challenge;
-    startOfTheChallenge = moment(foundChallenge.createdAt);
+    startOfTheChallenge = moment(foundChallenge.createdAt).format("YYYY-MM-DD");
 
     return challenge.getTasks();
   }).then((tasks) => {
     _.times(foundChallenge.numberOfDays, (n) => {
+      let currentDay = moment(startOfTheChallenge).add(n, 'd').format("YYYY-MM-DD");
+
       participantCheckers.push({
         checked: false,
-        current: startOfTheChallenge.day === moment().day,
-        day: startOfTheChallenge.add(n, 'days')
+        current: currentDay === moment().format("YYYY-MM-DD"),
+        day: currentDay
       });
       userCheckers.push({
         checked: false,
-        current: startOfTheChallenge.day === moment().day,
-        day: startOfTheChallenge.add(n, 'days')
+        current: currentDay === moment().format("YYYY-MM-DD"),
+        day: currentDay
       });
     });
 
@@ -202,6 +204,7 @@ app.get('/:uuid', (req, res) => {
 
     return participantTask.getUser();
   }).then((participant) => {
+    foundParticipant = participant;
 
     if (!foundChallenge.active) {
       return res.render('tasks/new', { challenge: foundChallenge, participant: participant });
@@ -209,7 +212,6 @@ app.get('/:uuid', (req, res) => {
 
     return db.Checker.findAll({ where: { TaskId: userTask.id }});
   }).then((checkers) => {
-    console.log('AFTER CHECKER');
     checkers.forEach((checker, index) => {
       userCheckers[index].checked = true;
     });
@@ -224,7 +226,7 @@ app.get('/:uuid', (req, res) => {
       name: foundChallenge.name,
       pot: foundChallenge.pot,
       user: req.session.user,
-      participant: participant,
+      participant: foundParticipant,
       userTask: userTask,
       participantTask: participantTask,
       userCheckers: userCheckers,
@@ -232,7 +234,7 @@ app.get('/:uuid', (req, res) => {
     };
 
     console.log(dataStructure);
-    
+
     res.render('challenges/show', { dataStructure: dataStructure });
   });
 });

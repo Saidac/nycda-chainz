@@ -12,30 +12,30 @@ block content
             tr
               td
                 h5= dataStructure.user.name
-              each checker in userCheckers
-                if checker.current
+              each checker in dataStructure.userCheckers
+                if checker.checked
+                  td(rowspan="2" class="cz-challenge-table-checked"): h1 x
+                else if checker.current
                   td(rowspan="2" class="cz-challenge-table-today")
                     form(action="/checkers" id="checkerForm" method="POST")
-                      //- input(type="hidden" name="_method" value="PUT")
-                      input(type = "hidden" value = )
-                      button(type='submit' class="ghost-btn")
+                      input(type="hidden" name="UserId" value=dataStructure.user.id)
+                      input(type="hidden" name="TaskId" value=dataStructure.userTask.id)
+                      button(type="submit" class='ghost-btn')
                         h1 x
-                else if checker.checked
-                  td(rowspan="2" class="cz-challenge-table-checked"): h1 x
                 else
                   td(rowspan="2" class="cz-challenge-table-unchecked"): h1 x
               td(rowspan="4"): h1='$'+ dataStructure.pot
-            tr
-              td
-                h6= dataStructure.userTask.name
-            tr
-              td
-                h5= dataStructure.participant.name
-              each checker in userCheckers
-                if checker.checked
-                  td(rowspan="2" class="cz-challenge-table-checked"): h1 x
-                else
-                  td(rowspan="2" class="cz-challenge-table-unchecked"): h1 x
-            tr
-              td
-                h6= dataStructure.participantTask.name
+              tr
+                td
+                  h6= dataStructure.userTask.name
+              tr
+                td
+                  h5= dataStructure.participant.name
+                each checker in dataStructure.participantCheckers
+                  if checker.checked
+                    td(rowspan="2" class="cz-challenge-table-checked"): h1 x
+                  else
+                    td(rowspan="2" class="cz-challenge-table-unchecked"): h1 x
+              tr
+                td
+                  h6= dataStructure.participantTask.name
