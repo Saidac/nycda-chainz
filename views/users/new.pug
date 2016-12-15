@@ -1,23 +1,24 @@
 extends ../application.pug
 block content
-	.container
-		.row
-			.col-xs-8.offset-xs-2
-				form(action= "/users" method= "POST")
-					.form-group
-						label(for="name")  Name
-						input(type="text" class="form-control" id="name" name="name" )
-					.form-group
-						label(for="surname")  Surname
-						input(type="text" class="form-control" id="surname" name="surname" )
-					.form-group
-						label(for="email")  Email
-						input(type="email" class="form-control" id="email" name="email" )
-					.form-group
-						label(for="password") Password
-						input(type="password" class="form-control" id="password" name="password" )
-
-					button(type="submit" class="btn btn-success") register
-					hr
-					a(href="/login")
-						| I am already signed up!
+	.jumbotron.jumbotron-fluid
+		.container
+			.row
+				.col-md-10.offset-xs-2
+					.col-md-6
+						h1(class="display-2") chainz
+						hr
+						p(class="lead") Motivation simply does not work for getting things done. However pain, fear and shame does.
+					.col-md-4
+						form(action= "/users" method= "POST")
+							.form-group
+								input(type="text" class="form-control" id="name" name="name" placeholder="First name")
+							.form-group
+								input(type="text" class="form-control" id="surname" name="surname" placeholder="Last name" )
+							.form-group
+								input(type="email" class="form-control" id="email" name="email" placeholder="Email")
+							.form-group
+								input(type="password" class="form-control" id="password" name="password" placeholder="Password")
+							button(type="submit" class="btn btn-primary btn-block") Register
+							hr
+							a(href="/login" class="text-primary")
+								p(class="text-md-center"): |I'm already signed up!
