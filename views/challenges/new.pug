@@ -1,22 +1,29 @@
 extends ../application.pug
 block content
-	.container
-		.row
-			.col-xs-8.offset-xs-2
-				form(action="/challenges" method="POST")
-					.form-group
-						label(for="name of challenge")  Name of challenge
-						input(type="text" class="form-control" id="name of challenge" name="challenge[name]" required)
-					.form-group
-						label(for="pot")  Amount of bet
-						input(type="number" class="form-control" id="pot" name="challenge[pot]" required)
-					.form-group
-						label(for="days") Numbers of Days
-						input(type="number" class="form-control"  id="days" name="challenge[numberOfDays]" required )
-					.form-group
-						label(for="email")  Email of participant
-						input(type="email" class="form-control" id="email"  name="participant[email]" required )
-					.form-group
-						label(for="task") What is your task?
-						input(type="text" class="form-control"  id="task" name="task[name]" required)
-					button(type="submit" class="btn btn-success") Create challenge
+	.jumbotron.jumbotron-fluid
+		.container
+			.row
+				.col-md-10.offset-xs-2
+					.col-md-4
+						h1(class="display-4") chainz
+						hr
+						p(class="lead") How much are you willing to pay for that super power you are way too lazy to develop? Bet money, and challenge somone!
+					.col-md-6
+						form(action="/challenges" method="POST")
+							.form-group
+								label(for="pot")  I want to bet…
+								input(type="number" class="form-control" id="pot" name="challenge[pot]" placeholder="… this much in EUR" required)
+							.form-group
+								label(for="email")  With this…
+								input(type="email" class="form-control" id="email"  name="participant[email]" placeholder="… person@email.com" required )
+							.form-group
+								label(for="task") That I can…
+								input(type="text" class="form-control"  id="task" name="task[name]" placeholder="… do this thing" required)
+							.form-group
+								label(for="days") For this many…
+								input(type="number" class="form-control"  id="days" name="challenge[numberOfDays]" placeholder="… days" required )
+							.form-group
+								label(for="name of challenge") And I shall call this challenge…
+								input(type="text" class="form-control" id="name of challenge" name="challenge[name]" placeholder="… this awesome name" required)
+
+							button(type="submit" class="btn btn-primary btn-block") Challenge!

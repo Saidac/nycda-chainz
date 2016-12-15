@@ -1,23 +1,21 @@
 extends ../application.pug
 block content
-	.container
-		.row
-			.col-xs-8.offset-xs-4
-				h2 Chainz
-				h5= challenge.name
-				form(action="/challenges/" + challenge.id method="POST")
-					input(type="hidden" name="participant[id]" value=participant.id)
-					input(type="hidden" name="challenge[id]" value=challenge.id)
-					.form-group
-						label(for="task") First name:
-						input(type="text" class="form-control"  id="name" name="participant[name]" required)
-					.form-group
-						label(for="task") What is your task?
-						input(type="text" class="form-control"  id="task" name="task[name]" required)
-					.form-group
-						label(for="email") Email:
-						p(class="form-control-static")= participant.email
-					.form-group
-						label(for="password") Password:
-						input(type="password" class="form-control" id="password" name="participant[password]")
-					button(type="submit" class="btn btn-success") Create task
+	.jumbotron.jumbotron-fluid
+		.container
+			.row
+				.col-md-10.offset-xs-2
+					.col-md-4
+						h1(class="display-2") chainz
+						hr
+						p(class="lead")= 'Hello ' + participant.email + '! You have have been invited to participate in… ' + challenge.name + '.'
+					.col-md-6
+						form(action="/challenges/" + challenge.id method="POST")
+							input(type="hidden" name="participant[id]" value=participant.id)
+							input(type="hidden" name="challenge[id]" value=challenge.id)
+							.form-group
+								input(type="text" class="form-control"  id="name" name="participant[name]" placeholder="What's your first name?" required)
+							.form-group
+								input(type="text" class="form-control"  id="task" name="task[name]" placeholder="Whats a thing you never do but should?" required)
+							.form-group
+								input(type="password" class="form-control" id="password" name="participant[password]" placeholder="Pick a password darling")
+							button(type="submit" class="btn btn-primary") Accept challenge!

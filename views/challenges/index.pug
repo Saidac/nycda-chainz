@@ -1,17 +1,20 @@
 extends ../application.pug
 block content
-	.container
-		.row
-			.col-xs-8.offset-xs-4
-
-				if challenges
-					h2 Chainz
+	.jumbotron.jumbotron-fluid
+		.container
+			.row
+				.col-md-10.offset-xs-2
+					if challenges
+						h1(class="display-2") chainz
+						hr
+						p(class="lead") Motivation simply does not work for getting things done. However pain, fear and shame does.
 					each challenge in challenges
 						a(href="/" + challenge.uuid)
 							h5= challenge.name
-				else
-					h3 ...Oh la La!
-					h5 Looks like you have no
-					h5 challenges, lets createTable
-					h5 a new one!
-					a(class="btn btn-primary" href="/challenges/new" role="button") Create a new challenge
+					else
+						h1(class="display-2") … oh la la!
+						h5
+							|Looks like you have no
+							|challenges, lets create
+							|a new one!
+						a(class="btn btn-primary" href="/challenges/new" role="button") Create a new challenge
