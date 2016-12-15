@@ -3,6 +3,12 @@ block content
 	.container
 		.row
 			.col-xs-8.offset-xs-2
+				if errors
+					each error in errors
+						div(class="alert alert-danger" role="alert")
+							strong= error.message
+
+
 				form(action= "/users" method= "POST")
 					.form-group
 						label(for="name")  Name
