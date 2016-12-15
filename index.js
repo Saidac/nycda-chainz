@@ -32,7 +32,6 @@ app.get('/', (req, res) => {
   if (req.session.user) {
     return res.redirect('/challenges/new');
   }
-
   res.render('users/new');
 });
 
@@ -40,6 +39,7 @@ app.get('/challenges', (req, res) => {
   if (!req.session.user) {
     return res.redirect('/login');
   }
+
 
   db.Task.findAll({
       where:{
