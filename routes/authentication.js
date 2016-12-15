@@ -29,7 +29,7 @@ router.post('/login', (req, res) => {
         if (result) {
           req.session.user = userInDb;
           req.app.locals.user = userInDb;
-          res.redirect('/challenges');
+          res.redirect('/challenges/new');
         } else {
          res.render('users/login', { error: { message: 'Password is incorrect' } });
         }
