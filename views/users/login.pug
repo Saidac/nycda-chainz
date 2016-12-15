@@ -3,6 +3,10 @@ block content
 	.container
 		.row
 			.col-xs-8.offset-xs-2
+				if error
+					div(class="alert alert-danger" role="alert")
+						strong= error.message
+
 				form(action="/login" method= "POST")
 					.form-group
 						label(for="email")  Email

@@ -29,15 +29,14 @@ router.post('/login', (req, res) => {
           if(result){
             req.session.user = userInDb;
             req.app.locals.user = userInDb;
-            res.redirect('/challenges');
-         } else {
-            res.redirect('/login');
-         }
+            res.redirect('/challenges/new');
+         }else {
+         res.render('users/login', { error: { message: 'Password is incorrect' } });
+        }
       });
-   }).catch((error) => {
-     console.log(error);
-      res.redirect('/');
-   });
+  }).catch((error) => {
+    res.render('users/login', { error: { message: 'User not found in the database' } });
+  });
 });
 
 router.get('/logout', (req, res) => {
@@ -51,10 +50,10 @@ router.post('/users', (req, res) => {
   db.User.create(user).then((user) => {
     req.session.user = user; // we are log the user in
     res.redirect('/');
-  }).catch(() => {
-    res.redirect('/register');
+  }).catch((error) => {
+    console.log(error);
+    res.render('users/new', { errors: error.errors });
   });
 });
-
 
 module.exports = router;
