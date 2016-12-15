@@ -5,21 +5,21 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING
     },
 
-    ChallengeId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'Challenges',
-        key: 'id'
-      }
-    },
-    UserId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'Users',
-        key: 'id'
-      }
-
-    }
+    // ChallengeId: {
+    //   type: DataTypes.INTEGER,
+    //   references: {
+    //     model: 'Challenges',
+    //     key: 'id'
+    //   }
+    // },
+    // UserId: {
+    //   type: DataTypes.INTEGER,
+    //   references: {
+    //     model: 'Users',
+    //     key: 'id'
+    //   }
+    //
+    // }
   }, {
     classMethods: {
       associate: function(models) {
@@ -27,7 +27,6 @@ module.exports = function(sequelize, DataTypes) {
         this.belongsTo(models.Challenge);
         this.belongsTo(models.User);
         this.hasMany(models.Checker);
-
       }
     }
   });

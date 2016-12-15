@@ -5,6 +5,8 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       displayRoutes = require('express-routemap'),
       pg = require('pg'),
+      moment = require('moment'),
+      _ = require('lodash'),
       session = require('express-session'),
       crypto = require('crypto'),
       base64url = require('base64url');
@@ -146,7 +148,7 @@ app.post('/tasks/new', (req, res) => {
   db.Task.create({
     name: req.body.task.name
   }).then((task) => {
-    return db.User.create({
+    db.User.create({
       password: req.body.participant.password
     });
   }).then((participant) => {
@@ -157,6 +159,11 @@ app.post('/tasks/new', (req, res) => {
 });
 
 app.get('/:uuid', (req, res) => {
+  var startOfTheChallenge, foundChallenge, foundTasks, foundParticipant,
+      userTask, participantTask,
+      participantCheckers = [],
+      userCheckers = [];
+
   if (!req.session.user) {
     res.redirect('/login');
   }
@@ -166,32 +173,63 @@ app.get('/:uuid', (req, res) => {
       uuid: req.params.uuid
      }
   }).then((challenge) => {
-    challenge.getUsers().then((users) => {
-      // most complicated part of the app:
-      if (!challenge.active) {
-        var participant = users.filter((user) => {
-          return !user.passwordDigest;
-        })[0];
+    foundChallenge = challenge;
+    startOfTheChallenge = moment(foundChallenge.createdAt).format("YYYY-MM-DD");
 
-       return res.render('tasks/new', { challenge: challenge, participant: participant });
-      }
+    return challenge.getTasks();
+  }).then((tasks) => {
+    _.times(foundChallenge.numberOfDays, (n) => {
+      let currentDay = moment(startOfTheChallenge).add(n, 'd').format("YYYY-MM-DD");
 
-      challenge.getTasks().then((tasks) => {
-        // marshall/design your object here
-        var dataStructure = {
-          name: challenge.name,
-          pot: challenge.pot,
-          tasks: tasks.map((task) => {
-            var owner = users.filter((user) => {
-              return user.id === task.UserId;
-            })[0];
-
-            return Object.assign({}, task.dataValues, { owner: owner.dataValues });
-          })
-        };
-        res.render('challenges/show', { dataStructure: dataStructure });
+      participantCheckers.push({
+        checked: false,
+        current: currentDay === moment().format("YYYY-MM-DD"),
+        day: currentDay
+      });
+      userCheckers.push({
+        checked: false,
+        current: currentDay === moment().format("YYYY-MM-DD"),
+        day: currentDay
       });
     });
+
+    userTask = tasks.find((task) => task.UserId === req.session.user.id);
+    participantTask = tasks.find((task) => task.UserId !== req.session.user.id);
+
+    return participantTask.getUser();
+  }).then((participant) => {
+    foundParticipant = participant;
+
+    if (!foundChallenge.active) {
+      return res.render('tasks/new', { challenge: foundChallenge, participant: participant });
+    }
+
+    return db.Checker.findAll({ where: { TaskId: userTask.id }});
+  }).then((checkers) => {
+    checkers.forEach((checker, index) => {
+      userCheckers[index].checked = true;
+    });
+
+    return db.Checker.findAll({ where: { TaskId: participantTask.id }});
+  }).then((checkers) => {
+    checkers.forEach((checker, index) => {
+      participantCheckers[index].checked = true;
+    });
+
+    var dataStructure = {
+      name: foundChallenge.name,
+      pot: foundChallenge.pot,
+      user: req.session.user,
+      participant: foundParticipant,
+      userTask: userTask,
+      participantTask: participantTask,
+      userCheckers: userCheckers,
+      participantCheckers: participantCheckers
+    };
+
+    console.log(dataStructure);
+
+    res.render('challenges/show', { dataStructure: dataStructure });
   });
 });
 
