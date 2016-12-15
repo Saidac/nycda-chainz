@@ -9,6 +9,9 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         notEmpty: {
           msg: 'Email cannot be empty'
+        },
+        isEmail: {
+          msg: 'Email must be a valid email format'
         }
       },
       allowNull:false,
