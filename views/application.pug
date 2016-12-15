@@ -4,7 +4,9 @@ html
 	body
 		nav(class="navbar navbar-light bg-faded")
 			if user
-				a(class="navbar-brand" href="/challenges") Home
+
+				a(class="navbar-brand" href="/challenges")
+					//- =dataStructure.user.name + '|'
 				a(class="navbar-brand" href="/") New
 				a(class="navbar-brand" href="/logout") Logout
 			else
