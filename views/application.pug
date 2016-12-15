@@ -2,8 +2,14 @@ html
 	head
 		link(rel='stylesheet', href="/css/application.css")
 	body
-		nav(class="navbar navbar-light bg-faded")
-			a(class="navbar-brand" href="/") Chainz
-			//- a(href="/logout" class="btn btn-success float-xs-right") logout
+			if user
+				nav(class="navbar navbar-light bg-faded")
+					a(class="navbar-brand" href="/challenges")= 'Welcome ' + user.name + '!'
+					a(class="navbar-brand" href="/") New
+					a(class="navbar-brand float-xs-right" href="/logout") Logout
+			else
+				nav(class="navbar navbar-light bg-faded")
+					a(class="navbar-brand" href="/") Chainz
+
 		block content
 		script(src='/js/application.js')
