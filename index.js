@@ -146,7 +146,7 @@ app.get('/chainz', (req, res) => {
 
 app.post('/checkers', (req, res) => {
   db.Checker.create(req.body).then((checker) => {
-    res.redirect('/');
+    res.redirect('/logout');
   });
 });
 
@@ -158,7 +158,7 @@ app.post('/tasks/new', (req, res) => {
       password: req.body.participant.password
     });
   }).then((participant) => {
-    res.redirect('/challenges');
+    res.redirect('/logout');
   }).catch((error) => {
     console.log(error);
   });

@@ -7,7 +7,7 @@ block content
 					.col-md-4
 						h1(class="display-2") chainz
 						hr
-						p(class="lead")= 'Hello ' + participant.email + '! You have have been invited to participate in… ' + challenge.name + '.'
+						p(class="lead")= 'Hello ' + participant.email + '! You have have been invited to participate in the challenge: ' + challenge.name + '.'
 					.col-md-6
 						form(action="/challenges/" + challenge.id method="POST")
 							input(type="hidden" name="participant[id]" value=participant.id)

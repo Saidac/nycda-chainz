@@ -1,41 +1,119 @@
 extends ../application.pug
 block content
-  .container
-    .row
-      .col-xs-8.offset-xs-1
-        table.cz-challenge-table
-          thead
-            tr
-              td(colspan="7")
-                h5= dataStructure.name
-          tbody
-            tr
-              td
-                h5= dataStructure.user.name
+  .jumbotron.jumbotron-fluid
+    .container
+      .row
+        .col-md-8.offset-xs-2
+          table.cz-challenge-table
+            thead
+              tr
+                td(colspan="2")
+                  h1(class="display-1")= '€' + dataStructure.pot
+                tr
+                  td(colspan="2")
+                    h1(class="display-4")= dataStructure.name
+                tr
+                  td
+                    h1= dataStructure.user.name
+                  td
+                    h1= dataStructure.participant.name
+                tr
+                  td
+                    h2= dataStructure.userTask.name
+                  td
+                    h2= dataStructure.participantTask.name
+            tbody
               each checker in dataStructure.userCheckers
-                if checker.checked
-                  td(rowspan="2" class="cz-challenge-table-checked"): h1 x
-                else if checker.current
-                  td(rowspan="2" class="cz-challenge-table-today")
-                    form(action="/checkers" id="checkerForm" method="POST")
-                      input(type="hidden" name="UserId" value=dataStructure.user.id)
-                      input(type="hidden" name="TaskId" value=dataStructure.userTask.id)
-                      button(type="submit" class='ghost-btn')
-                        h1 x
-                else
-                  td(rowspan="2" class="cz-challenge-table-unchecked"): h1 x
-              td(rowspan="4"): h1='€'+ dataStructure.pot
+                tr
+                  div
+                    if checker.checked
+                      td(class="cz-challenge-table-checked"): h1(class="display-4") x
+                    else if checker.current
+                      td(class="cz-challenge-table-today")
+                        form(action="/checkers" id="checkerForm" method="POST")
+                          input(type="hidden" name="UserId" value=dataStructure.user.id)
+                          input(type="hidden" name="TaskId" value=dataStructure.userTask.id)
+                          button(type="submit" class='ghost-btn')
+                            h1(class="display-4") x
+                    else
+                      td(class="cz-challenge-table-unchecked"): h1(class="display-4") x
+                  div
+                    if checker.checked
+                      td(class="cz-challenge-table-checked"): h1(class="display-4") x
+                    else
+                      td(class="cz-challenge-table-unchecked"): h1(class="display-4") x
+            tfooter
               tr
-                td
-                  h6= dataStructure.userTask.name
-              tr
-                td
-                  h5= dataStructure.participant.name
-                each checker in dataStructure.participantCheckers
-                  if checker.checked
-                    td(rowspan="2" class="cz-challenge-table-checked"): h1 x
-                  else
-                    td(rowspan="2" class="cz-challenge-table-unchecked"): h1 x
-              tr
-                td
-                  h6= dataStructure.participantTask.name
+                td(colspan="2")
+                  h1(class="display-1") GOAL!
+
+
+
+
+
+
+            //- tbody
+            //-     each checker in dataStructure.userCheckers
+            //-       tr
+            //-         each checker in dataStructure.userCheckers
+            //-           if checker.checked
+            //-             td(class="cz-challenge-table-checked"): h1 x
+            //-           else if checker.current
+            //-             td(class="cz-challenge-table-today")
+            //-               form(action="/checkers" id="checkerForm" method="POST")
+            //-                 input(type="hidden" name="UserId" value=dataStructure.user.id)
+            //-                 input(type="hidden" name="TaskId" value=dataStructure.userTask.id)
+            //-                 button(type="submit" class='ghost-btn')
+            //-                   h1 x
+            //-           else
+            //-             td(rowspan="2" class="cz-challenge-table-unchecked"): h1 x
+            //-     each checker in dataStructure.participantCheckers
+            //-       tr
+            //-         if checker.checked
+            //-           td(class="cz-challenge-table-checked"): h1 x
+            //-         else
+            //-           td(class="cz-challenge-table-unchecked"): h1 x
+
+
+  //- .container
+  //-   .row
+  //-     .col-xs-8.offset-xs-1
+  //-       br
+  //-       br
+  //-       br
+  //-       table.cz-challenge-table
+  //-         thead
+  //-           tr
+  //-             td(colspan="7")
+  //-               h5= dataStructure.name
+  //-         tbody
+  //-           tr
+  //-             td
+  //-               h5= dataStructure.user.name
+  //-             each checker in dataStructure.userCheckers
+  //-               if checker.checked
+  //-                 td(rowspan="2" class="cz-challenge-table-checked"): h1 x
+  //-               else if checker.current
+  //-                 td(rowspan="2" class="cz-challenge-table-today")
+  //-                   form(action="/checkers" id="checkerForm" method="POST")
+  //-                     input(type="hidden" name="UserId" value=dataStructure.user.id)
+  //-                     input(type="hidden" name="TaskId" value=dataStructure.userTask.id)
+  //-                     button(type="submit" class='ghost-btn')
+  //-                       h1 x
+  //-               else
+  //-                 td(rowspan="2" class="cz-challenge-table-unchecked"): h1 x
+  //-             td(rowspan="4"): h1='€'+ dataStructure.pot
+  //-             tr
+  //-               td
+  //-                 h6= dataStructure.userTask.name
+  //-             tr
+  //-               td
+  //-                 h5= dataStructure.participant.name
+  //-               each checker in dataStructure.participantCheckers
+  //-                 if checker.checked
+  //-                   td(rowspan="2" class="cz-challenge-table-checked"): h1 x
+  //-                 else
+  //-                   td(rowspan="2" class="cz-challenge-table-unchecked"): h1 x
+  //-             tr
+  //-               td
+  //-                 h6= dataStructure.participantTask.name

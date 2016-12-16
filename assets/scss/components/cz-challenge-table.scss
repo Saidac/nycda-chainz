@@ -1,22 +1,25 @@
 .cz-challenge-table {
-  $checker-width: 90px;
-  $checker-height: 82px;
-
+  // $checker-width: 90px;
+  // $checker-height: 82px;
+  table-layout: fixed;
+  width: 100%;
   border-collapse: collapse;
 
+
   td {
+    width: 50%;
     vertical-align: middle;
     text-align: center;
     white-space: nowrap;
     border: 2px solid black;
     padding: 15px;
-    background: white;
-    width: $checker-width;
+    background: #f7f7f9;
+    // width: $checker-width;
   }
 
-  tbody td:first-of-type {
-    width: initial;
-  }
+  // tbody td:first-of-type {
+  //   width: initial;
+  // }
 
   td.cz-challenge-table-checked {
     background-color: #ffff99;
@@ -33,8 +36,8 @@
   }
 
   button {
-    height: $checker-height;
-    width: $checker-width - 32px;
+    // height: $checker-height;
+    // width: $checker-width - 32px;
     margin: 0px;
     padding: 0px;
     border-width: 0px;
